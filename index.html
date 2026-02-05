@@ -872,7 +872,12 @@
                                         <label class="text-sm font-medium">Loan-to-Value (LTV)</label>
                                         <span class="text-sm font-bold text-teal-600" id="ltv-display">75%</span>
                                     </div>
-                                    <input type="range" min="50" max="85" step="5" value="75" id="ltv-slider" class="w-full">
+                                    <input type="range" min="50" max="90" step="5" value="75" id="ltv-slider" class="w-full">
+                                    <div class="flex justify-between text-xs text-stone-400 mt-1">
+                                        <span>50%</span>
+                                        <span>70%</span>
+                                        <span>90%</span>
+                                    </div>
                                 </div>
 
                                 <div>
@@ -880,7 +885,12 @@
                                         <label class="text-sm font-medium">Interest Rate</label>
                                         <span class="text-sm font-bold text-teal-600" id="interest-rate-display">6.50%</span>
                                     </div>
-                                    <input type="range" min="4.0" max="9.0" step="0.25" value="6.5" id="interest-rate-slider" class="w-full">
+                                    <input type="range" min="4.0" max="12.0" step="0.25" value="6.5" id="interest-rate-slider" class="w-full">
+                                    <div class="flex justify-between text-xs text-stone-400 mt-1">
+                                        <span>4%</span>
+                                        <span>8%</span>
+                                        <span>12%</span>
+                                    </div>
                                 </div>
 
                                 <div>
@@ -888,7 +898,33 @@
                                         <label class="text-sm font-medium">Amortization (Years)</label>
                                         <span class="text-sm font-bold text-teal-600" id="amort-display">25</span>
                                     </div>
-                                    <input type="range" min="20" max="30" step="5" value="25" id="amort-slider" class="w-full">
+                                    <input type="range" min="0" max="30" step="5" value="25" id="amort-slider" class="w-full">
+                                    <div class="flex justify-between text-xs text-stone-400 mt-1">
+                                        <span>I/O</span>
+                                        <span>15yr</span>
+                                        <span>30yr</span>
+                                    </div>
+                                    <p class="text-xs text-stone-500 dark:text-stone-400 mt-1">0 = Interest Only</p>
+                                </div>
+
+                                <div class="pt-4 border-t border-stone-200 dark:border-slate-600">
+                                    <div class="flex justify-between mb-2">
+                                        <label class="text-sm font-medium">Additional Equity Investment
+                                            <span class="tooltip">
+                                                <svg class="w-3 h-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                                <span class="tooltiptext">Extra equity to offset debt amount (reduces loan needed)</span>
+                                            </span>
+                                        </label>
+                                        <span class="text-sm font-bold text-teal-600" id="additional-equity-display">$0</span>
+                                    </div>
+                                    <input type="range" min="0" max="5000000" step="100000" value="0" id="additional-equity-slider" class="w-full">
+                                    <div class="flex justify-between text-xs text-stone-400 mt-1">
+                                        <span>$0</span>
+                                        <span>$2.5M</span>
+                                        <span>$5M</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -896,13 +932,23 @@
                         <div>
                             <h4 class="font-semibold mb-4">Debt Analysis Results</h4>
                             <div class="space-y-3">
-                                <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                                    <div class="text-xs text-blue-600 dark:text-blue-400 font-semibold mb-1">Loan Amount</div>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                                    <div class="text-xs text-slate-600 dark:text-slate-400 font-semibold mb-1">Loan Amount (LTV-Based)</div>
+                                    <div class="text-lg font-bold" id="loan-amount-ltv">$8,713,144</div>
+                                </div>
+
+                                <div class="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                                    <div class="text-xs text-slate-600 dark:text-slate-400 font-semibold mb-1">Less: Additional Equity</div>
+                                    <div class="text-lg font-bold text-red-600 dark:text-red-400" id="additional-equity-amount">-$0</div>
+                                </div>
+
+                                <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-2 border-blue-200 dark:border-blue-800">
+                                    <div class="text-xs text-blue-600 dark:text-blue-400 font-semibold mb-1">Net Loan Amount</div>
                                     <div class="text-2xl font-bold" id="loan-amount">$8,713,144</div>
                                 </div>
 
                                 <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                                    <div class="text-xs text-green-600 dark:text-green-400 font-semibold mb-1">Equity Required</div>
+                                    <div class="text-xs text-green-600 dark:text-green-400 font-semibold mb-1">Total Equity Required</div>
                                     <div class="text-2xl font-bold" id="equity-required">$2,904,381</div>
                                 </div>
 
@@ -1007,7 +1053,7 @@
             document.getElementById('cap-rate-slider').addEventListener('input', updateValuation);
 
             // Debt
-            ['ltv-slider', 'interest-rate-slider', 'amort-slider'].forEach(id => {
+            ['ltv-slider', 'interest-rate-slider', 'amort-slider', 'additional-equity-slider'].forEach(id => {
                 document.getElementById(id)?.addEventListener('input', updateDebtAnalysis);
             });
 
@@ -1124,38 +1170,61 @@
             const ltv = parseFloat(document.getElementById('ltv-slider')?.value || 75) / 100;
             const interestRate = parseFloat(document.getElementById('interest-rate-slider')?.value || 6.5) / 100;
             const amortYears = parseFloat(document.getElementById('amort-slider')?.value || 25);
+            const additionalEquity = parseFloat(document.getElementById('additional-equity-slider')?.value || 0);
 
-            const loanAmount = purchasePrice * ltv;
-            const equityRequired = purchasePrice - loanAmount;
+            // Calculate LTV-based loan amount
+            const loanAmountLTV = purchasePrice * ltv;
+
+            // Subtract additional equity to get net loan amount
+            const netLoanAmount = Math.max(0, loanAmountLTV - additionalEquity);
+
+            // Total equity = required equity + additional equity invested
+            const baseEquityRequired = purchasePrice - loanAmountLTV;
+            const totalEquityRequired = baseEquityRequired + additionalEquity;
 
             // Calculate annual debt service (PMT formula)
-            const monthlyRate = interestRate / 12;
-            const numPayments = amortYears * 12;
-            const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
-            const annualDebtService = monthlyPayment * 12;
+            let annualDebtService = 0;
+            if (netLoanAmount > 0) {
+                if (amortYears === 0) {
+                    // Interest only
+                    annualDebtService = netLoanAmount * interestRate;
+                } else {
+                    // Amortizing loan
+                    const monthlyRate = interestRate / 12;
+                    const numPayments = amortYears * 12;
+                    const monthlyPayment = netLoanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+                    annualDebtService = monthlyPayment * 12;
+                }
+            }
 
-            const dscr = CORE_DATA.annualEBITDAR / annualDebtService;
+            const dscr = annualDebtService > 0 ? CORE_DATA.annualEBITDAR / annualDebtService : 999;
             const annualCashFlow = CORE_DATA.annualEBITDAR - annualDebtService;
-            const cocReturn = (annualCashFlow / equityRequired) * 100;
+            const cocReturn = totalEquityRequired > 0 ? (annualCashFlow / totalEquityRequired) * 100 : 0;
 
             // Update displays
             document.getElementById('ltv-display').textContent = (ltv * 100).toFixed(0) + '%';
             document.getElementById('interest-rate-display').textContent = (interestRate * 100).toFixed(2) + '%';
-            document.getElementById('amort-display').textContent = amortYears;
-            document.getElementById('loan-amount').textContent = formatCurrency(loanAmount);
-            document.getElementById('equity-required').textContent = formatCurrency(equityRequired);
+            document.getElementById('amort-display').textContent = amortYears === 0 ? 'I/O' : amortYears;
+            document.getElementById('additional-equity-display').textContent = formatCurrency(additionalEquity);
+
+            document.getElementById('loan-amount-ltv').textContent = formatCurrency(loanAmountLTV);
+            document.getElementById('additional-equity-amount').textContent = '-' + formatCurrency(additionalEquity);
+            document.getElementById('loan-amount').textContent = formatCurrency(netLoanAmount);
+            document.getElementById('equity-required').textContent = formatCurrency(totalEquityRequired);
             document.getElementById('annual-debt-service').textContent = formatCurrency(annualDebtService);
-            document.getElementById('dscr').textContent = dscr.toFixed(2) + 'x';
+            document.getElementById('dscr').textContent = dscr > 99 ? '∞' : dscr.toFixed(2) + 'x';
             document.getElementById('coc-return').textContent = cocReturn.toFixed(2) + '%';
 
             // Return metrics
             const unleveredYield = (CORE_DATA.annualEBITDAR / purchasePrice) * 100;
             document.getElementById('unlevered-yield').textContent = unleveredYield.toFixed(2) + '%';
             document.getElementById('levered-yield').textContent = cocReturn.toFixed(2) + '%';
-            document.getElementById('equity-multiple').textContent = ((annualCashFlow * 5 + equityRequired) / equityRequired).toFixed(2) + 'x';
+
+            const equityMultiple = totalEquityRequired > 0 ? ((annualCashFlow * 5 + totalEquityRequired) / totalEquityRequired) : 1;
+            document.getElementById('equity-multiple').textContent = equityMultiple.toFixed(2) + 'x';
 
             // Simplified IRR calculation (5-year hold)
-            const irr = Math.pow((annualCashFlow * 5 + purchasePrice) / equityRequired, 1/5) - 1;
+            const irr = totalEquityRequired > 0 ? Math.pow((annualCashFlow * 5 + purchasePrice) / totalEquityRequired, 1/5) - 1 : 0;
             document.getElementById('irr-5y').textContent = (irr * 100).toFixed(1) + '%';
         }
 
