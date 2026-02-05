@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <title>Caleo Bay | Professional Investment Analysis Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f5f5f4;
+            --bg-card: #ffffff;
+            --text-primary: #334155;
+            --teal-primary: #0d9488;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #e2e8f0;
+            --teal-primary: #2dd4bf;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 350px; }
+        }
+
+        .tab-btn { transition: all 0.2s ease; border-bottom: 3px solid transparent; }
+        .tab-btn.active { border-bottom-color: var(--teal-primary); color: #0f766e; font-weight: 600; }
+        .tab-btn:hover:not(.active) { color: var(--teal-primary); }
+
+        [data-theme="dark"] .tab-btn.active { color: #2dd4bf; }
+
+        .stat-value { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: var(--teal-primary);
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #cbd5e1;
+            border-radius: 2px;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #1e293b;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .scenario-card {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .scenario-card.selected {
+            border: 2px solid var(--teal-primary);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+        }
+
+        .kbd {
+            display: inline-block;
+            padding: 2px 6px;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #24292e;
+            vertical-align: middle;
+            background-color: #fafbfc;
+            border: solid 1px #d1d5da;
+            border-radius: 3px;
+            box-shadow: inset 0 -1px 0 #d1d5da;
+        }
+
+        #keyboard-help-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .print-only { display: none; }
+
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; }
+            .card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Keyboard Help Modal -->
+    <div id="keyboard-help-modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Keyboard Shortcuts</h2>
+                <button onclick="closeKeyboardHelp()" class="text-2xl">&times;</button>
+            </div>
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between py-2 border-b"><span>Navigation</span><span></span></div>
+                <div class="flex justify-between"><span>Valuation Tab</span><span class="kbd">1</span></div>
+                <div class="flex justify-between"><span>Expenses Tab</span><span class="kbd">2</span></div>
+                <div class="flex justify-between"><span>Financials Tab</span><span class="kbd">3</span></div>
+                <div class="flex justify-between"><span>Occupancy Tab</span><span class="kbd">4</span></div>
+                <div class="flex justify-between"><span>Pricing Tab</span><span class="kbd">5</span></div>
+                <div class="flex justify-between"><span>Projections Tab</span><span class="kbd">6</span></div>
+                <div class="flex justify-between"><span>Scenarios Tab</span><span class="kbd">7</span></div>
+
+                <div class="flex justify-between py-2 border-b mt-4"><span>Actions</span><span></span></div>
+                <div class="flex justify-between"><span>Toggle Dark Mode</span><span class="kbd">D</span></div>
+                <div class="flex justify-between"><span>Export Data</span><span class="kbd">E</span></div>
+                <div class="flex justify-between"><span>Print View</span><span class="kbd">P</span></div>
+                <div class="flex justify-between"><span>Save Scenario</span><span class="kbd">S</span></div>
+                <div class="flex justify-between"><span>Show This Help</span><span class="kbd">?</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white dark:bg-slate-800 border-b border-stone-200 dark:border-slate-700 sticky top-0 z-50 shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center h-auto md:h-16 py-3 md:py-0">
+                <div class="flex items-center mb-3 md:mb-0 w-full md:w-auto">
+                    <div class="w-10 h-10 bg-gradient-to-br from-teal-600 to-teal-800 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-md flex-shrink-0">CB</div>
+                    <div class="ml-3">
+                        <h1 class="text-lg font-bold text-stone-800 dark:text-stone-100 leading-none">Caleo Bay</h1>
+                        <span class="text-xs text-stone-500 dark:text-stone-400 uppercase tracking-wider font-medium">Professional Investment Analysis</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-slate-700 transition-colors" title="Toggle Dark Mode (D)">
+                        <svg id="theme-icon-light" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="theme-icon-dark" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+
+                    <button onclick="showKeyboardHelp()" class="p-2 rounded-lg hover:bg-stone-100 dark:hover:bg-slate-700 transition-colors" title="Keyboard Shortcuts (?)">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </button>
+
+                    <button onclick="exportData()" class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-sm font-medium transition-colors" title="Export Data (E)">
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <nav class="flex space-x-1 md:space-x-4 overflow-x-auto w-full pb-1 no-scrollbar border-t border-stone-100 dark:border-slate-700 pt-2">
+                <button onclick="switchTab('valuation')" class="tab-btn active px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-valuation">Valuation <span class="kbd ml-1">1</span></button>
+                <button onclick="switchTab('expenses')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-expenses">Expenses <span class="kbd ml-1">2</span></button>
+                <button onclick="switchTab('financials')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-financials">Financials <span class="kbd ml-1">3</span></button>
+                <button onclick="switchTab('occupancy')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-occupancy">Occupancy <span class="kbd ml-1">4</span></button>
+                <button onclick="switchTab('pricing')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-pricing">Pricing <span class="kbd ml-1">5</span></button>
+                <button onclick="switchTab('projections')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-projections">Pro Forma <span class="kbd ml-1">6</span></button>
+                <button onclick="switchTab('scenarios')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-scenarios">Scenarios <span class="kbd ml-1">7</span></button>
+                <button onclick="switchTab('debt')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-debt">Debt Analysis</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- VIEW: VALUATION (DEFAULT) -->
+        <div id="view-valuation" class="space-y-6 animate-fade-in">
+
+            <div class="grid lg:grid-cols-2 gap-8">
+
+                <!-- Detailed Math Bridge -->
+                <div class="card border-l-4 border-teal-500 shadow-md">
+                    <h2 class="text-xl font-bold mb-2">OM Financial Bridge
+                        <span class="tooltip">
+                            <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="tooltiptext">EBITDAR = Earnings Before Interest, Taxes, Depreciation, Amortization, and Rent. Key metric for senior living facilities.</span>
+                        </span>
+                    </h2>
+                    <p class="text-sm text-stone-500 dark:text-stone-400 mb-6">Reconciliation of T-12 Financials per the Offering Memorandum.</p>
+
+                    <div class="space-y-4 relative">
+                        <div class="flex justify-between items-center p-3 bg-stone-50 dark:bg-slate-700 rounded-lg border border-stone-100 dark:border-slate-600">
+                            <div>
+                                <span class="block text-xs font-bold text-stone-400 uppercase">Total Revenue (T-12)</span>
+                                <span class="text-sm font-medium">Dec 2024 - Nov 2025</span>
+                            </div>
+                            <span class="text-xl font-bold">$4,382,285</span>
+                        </div>
+
+                        <div class="flex justify-center -my-2 relative z-10"><span class="bg-white dark:bg-slate-800 px-2 text-stone-400 text-xs">− Expenses</span></div>
+
+                        <div class="flex justify-between items-center p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-100 dark:border-red-800">
+                            <div>
+                                <span class="block text-xs font-bold text-red-400 uppercase">Total Expenses (T-12)</span>
+                                <span class="text-sm font-medium text-red-700 dark:text-red-400">OM Verified OpEx</span>
+                            </div>
+                            <span class="text-xl font-bold text-red-700 dark:text-red-400">($3,452,883)</span>
+                        </div>
+
+                        <div class="border-t-2 border-slate-200 dark:border-slate-600 pt-4 mt-4">
+                            <div class="flex justify-between items-center p-4 bg-teal-600 dark:bg-teal-700 rounded-lg shadow-lg text-white">
+                                <div>
+                                    <span class="block text-xs font-bold text-teal-200 uppercase tracking-wider">OM EBITDAR</span>
+                                    <span class="text-sm font-medium text-teal-50">21.2% Margin</span>
+                                </div>
+                                <span class="text-3xl font-bold">$929,402</span>
+                            </div>
+                        </div>
+
+                        <!-- NEW: Key Metrics -->
+                        <div class="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-stone-200 dark:border-slate-600">
+                            <div class="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                <div class="text-xs text-blue-600 dark:text-blue-400 font-semibold">EBITDAR/Unit</div>
+                                <div class="text-lg font-bold">$14,082</div>
+                            </div>
+                            <div class="text-center p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                <div class="text-xs text-purple-600 dark:text-purple-400 font-semibold">Avg Rev/Unit/Mo</div>
+                                <div class="text-lg font-bold">$5,533</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Valuation Calculator with UNIT ECONOMICS -->
+                <div class="card border border-stone-200 dark:border-slate-600 shadow-md flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg mb-2 flex items-center">
+                            <span class="bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-400 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">$$</span>
+                            Valuation Sensitivity
+                        </h4>
+                        <p class="text-sm text-stone-500 dark:text-stone-400 mb-6">Based on <strong>$929,402</strong> EBITDAR across <strong>66 Units</strong>.</p>
+
+                        <div class="mb-8">
+                            <div class="flex justify-between mb-2">
+                                <label class="block text-sm font-medium">Target Cap Rate
+                                    <span class="tooltip">
+                                        <svg class="w-3 h-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <span class="tooltiptext">Cap Rate = Annual NOI / Property Value. Lower rates mean higher valuations.</span>
+                                    </span>
+                                </label>
+                                <span class="text-sm font-bold text-teal-600" id="cap-rate-display">8.00%</span>
+                            </div>
+                            <input type="range" min="5.0" max="12.0" step="0.25" value="8.0" id="cap-rate-slider" class="w-full">
+                            <div class="flex justify-between text-xs text-stone-400 mt-1">
+                                <span>Aggressive (5%)</span>
+                                <span>Market (8%)</span>
+                                <span>Conservative (12%)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-6 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                            <div class="flex justify-between items-center mb-1">
+                                <div>
+                                    <span class="block text-sm font-semibold">Total Valuation</span>
+                                    <span class="text-xs text-stone-400">Implied Value</span>
+                                </div>
+                                <span class="text-3xl font-bold" id="val-output">$11,617,525</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-100 dark:border-orange-800">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="block text-xs uppercase font-bold text-orange-800 dark:text-orange-400 tracking-wider">Price Per Unit (66)</span>
+                                    <span class="text-xs text-orange-600 dark:text-orange-500">Unit-Level Economics</span>
+                                </div>
+                                <span class="text-2xl font-bold text-orange-700 dark:text-orange-400" id="ppu-output">$176,023</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensitivity Matrix -->
+            <div class="card">
+                <h4 class="font-bold mb-4">Upside & Unit Value Matrix</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-center">
+                        <thead class="bg-stone-100 dark:bg-slate-700 text-xs uppercase">
+                            <tr>
+                                <th class="p-3 text-left">Cap Rate</th>
+                                <th class="p-3">Current (21.2%)<br><span class="text-[10px] opacity-60">$929k EBITDAR</span></th>
+                                <th class="p-3 bg-slate-50 dark:bg-slate-600">Price Per Unit<br><span class="text-[10px] opacity-60">@ Current</span></th>
+                                <th class="p-3">Stabilized (30%)<br><span class="text-[10px] opacity-60">$1.31M EBITDAR</span></th>
+                                <th class="p-3">PPU @ Stabilized</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-100 dark:divide-slate-700">
+                            <tr>
+                                <td class="p-3 font-bold text-left">6.0%</td>
+                                <td class="p-3">$15.5M</td>
+                                <td class="p-3 bg-slate-50 dark:bg-slate-600 font-medium">$234k</td>
+                                <td class="p-3 font-bold">$21.9M</td>
+                                <td class="p-3 font-medium">$331k</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold text-left">7.0%</td>
+                                <td class="p-3">$13.3M</td>
+                                <td class="p-3 bg-slate-50 dark:bg-slate-600 font-medium">$201k</td>
+                                <td class="p-3 font-bold">$18.8M</td>
+                                <td class="p-3 font-medium">$284k</td>
+                            </tr>
+                            <tr class="bg-teal-50/30 dark:bg-teal-900/20 ring-1 ring-teal-100 dark:ring-teal-800">
+                                <td class="p-3 font-bold text-left text-teal-800 dark:text-teal-400">8.0%</td>
+                                <td class="p-3 font-bold text-teal-800 dark:text-teal-400">$11.6M</td>
+                                <td class="p-3 bg-teal-50 dark:bg-teal-900/30 font-bold text-teal-700 dark:text-teal-400">$176k</td>
+                                <td class="p-3 font-bold">$16.4M</td>
+                                <td class="p-3 font-bold">$248k</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold text-left">9.0%</td>
+                                <td class="p-3">$10.3M</td>
+                                <td class="p-3 bg-slate-50 dark:bg-slate-600 font-medium">$156k</td>
+                                <td class="p-3 font-bold">$14.6M</td>
+                                <td class="p-3 font-medium">$221k</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold text-left">10.0%</td>
+                                <td class="p-3">$9.3M</td>
+                                <td class="p-3 bg-slate-50 dark:bg-slate-600 font-medium">$140k</td>
+                                <td class="p-3 font-bold">$13.1M</td>
+                                <td class="p-3 font-medium">$199k</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional views will continue in next section... -->
+
+        <div id="view-expenses" class="hidden">
+            <div class="card">
+                <h3 class="text-xl font-bold mb-4">Expense Analysis</h3>
+                <p class="text-sm text-stone-500 dark:text-stone-400 mb-6">Detailed breakdown of $3,452,883 operating expenses</p>
+                <div class="chart-container">
+                    <canvas id="expenseChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-financials" class="hidden">
+            <div class="card">
+                <h3 class="text-xl font-bold mb-4">Financial Performance</h3>
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-occupancy" class="hidden">
+            <div class="card">
+                <h3 class="text-xl font-bold mb-4">Occupancy & Census</h3>
+                <div class="chart-container">
+                    <canvas id="censusChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-pricing" class="hidden">
+            <div class="card">
+                <h3 class="text-xl font-bold mb-4">Pricing Calculator</h3>
+                <p class="text-sm text-stone-500 dark:text-stone-400">Interactive rate calculator with care levels</p>
+            </div>
+        </div>
+
+        <div id="view-projections" class="hidden">
+            <div class="card">
+                <h3 class="text-xl font-bold mb-4">5-Year Pro Forma Projections</h3>
+                <p class="text-sm text-stone-500 dark:text-stone-400 mb-6">Forward-looking financial projections with growth assumptions</p>
+
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Annual Revenue Growth</label>
+                        <input type="range" min="0" max="10" step="0.5" value="3" id="growth-rate" class="w-full">
+                        <div class="text-center text-sm font-bold text-teal-600 mt-1"><span id="growth-rate-display">3.0%</span></div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Expense Growth</label>
+                        <input type="range" min="0" max="8" step="0.5" value="2.5" id="expense-growth" class="w-full">
+                        <div class="text-center text-sm font-bold text-red-600 mt-1"><span id="expense-growth-display">2.5%</span></div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Target Occupancy</label>
+                        <input type="range" min="70" max="95" step="1" value="85" id="target-occupancy" class="w-full">
+                        <div class="text-center text-sm font-bold text-blue-600 mt-1"><span id="target-occupancy-display">85%</span></div>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-stone-100 dark:bg-slate-700">
+                            <tr>
+                                <th class="p-3 text-left">Year</th>
+                                <th class="p-3 text-right">Revenue</th>
+                                <th class="p-3 text-right">Expenses</th>
+                                <th class="p-3 text-right">EBITDAR</th>
+                                <th class="p-3 text-right">Margin</th>
+                                <th class="p-3 text-right">Occupancy</th>
+                            </tr>
+                        </thead>
+                        <tbody id="proforma-table" class="divide-y divide-stone-100 dark:divide-slate-700">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-6 chart-container">
+                    <canvas id="proformaChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-scenarios" class="hidden">
+            <div class="space-y-6">
+                <div class="card">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">Investment Scenarios</h3>
+                        <button onclick="saveScenario()" class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-sm font-medium">
+                            Save Current Scenario
+                        </button>
+                    </div>
+                    <p class="text-sm text-stone-500 dark:text-stone-400 mb-6">Compare multiple investment scenarios side-by-side</p>
+
+                    <div id="scenarios-grid" class="grid md:grid-cols-3 gap-4">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-debt" class="hidden">
+            <div class="space-y-6">
+                <div class="card">
+                    <h3 class="text-xl font-bold mb-2">Debt Analysis & Returns
+                        <span class="tooltip">
+                            <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="tooltiptext">Calculate returns with debt financing including DSCR (Debt Service Coverage Ratio) and Cash-on-Cash return</span>
+                        </span>
+                    </h3>
+                    <p class="text-sm text-stone-500 dark:text-stone-400 mb-6">Model financing scenarios and calculate levered returns</p>
+
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-4">Loan Parameters</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <label class="text-sm font-medium">Purchase Price</label>
+                                        <span class="text-sm font-bold text-teal-600" id="debt-purchase-price">$11,617,525</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <label class="text-sm font-medium">Loan-to-Value (LTV)</label>
+                                        <span class="text-sm font-bold text-teal-600" id="ltv-display">75%</span>
+                                    </div>
+                                    <input type="range" min="50" max="85" step="5" value="75" id="ltv-slider" class="w-full">
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <label class="text-sm font-medium">Interest Rate</label>
+                                        <span class="text-sm font-bold text-teal-600" id="interest-rate-display">6.50%</span>
+                                    </div>
+                                    <input type="range" min="4.0" max="9.0" step="0.25" value="6.5" id="interest-rate-slider" class="w-full">
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <label class="text-sm font-medium">Amortization (Years)</label>
+                                        <span class="text-sm font-bold text-teal-600" id="amort-display">25</span>
+                                    </div>
+                                    <input type="range" min="20" max="30" step="5" value="25" id="amort-slider" class="w-full">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold mb-4">Debt Analysis Results</h4>
+                            <div class="space-y-3">
+                                <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                    <div class="text-xs text-blue-600 dark:text-blue-400 font-semibold mb-1">Loan Amount</div>
+                                    <div class="text-2xl font-bold" id="loan-amount">$8,713,144</div>
+                                </div>
+
+                                <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                    <div class="text-xs text-green-600 dark:text-green-400 font-semibold mb-1">Equity Required</div>
+                                    <div class="text-2xl font-bold" id="equity-required">$2,904,381</div>
+                                </div>
+
+                                <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                    <div class="text-xs text-purple-600 dark:text-purple-400 font-semibold mb-1">Annual Debt Service</div>
+                                    <div class="text-2xl font-bold" id="annual-debt-service">$681,725</div>
+                                </div>
+
+                                <div class="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                                    <div class="text-xs text-orange-600 dark:text-orange-400 font-semibold mb-1">
+                                        DSCR
+                                        <span class="tooltip">
+                                            <svg class="w-3 h-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <span class="tooltiptext">Debt Service Coverage Ratio. Lenders typically require 1.25x minimum</span>
+                                        </span>
+                                    </div>
+                                    <div class="text-2xl font-bold" id="dscr">1.36x</div>
+                                </div>
+
+                                <div class="p-4 bg-teal-600 dark:bg-teal-700 text-white rounded-lg">
+                                    <div class="text-xs text-teal-100 font-semibold mb-1">
+                                        Cash-on-Cash Return
+                                        <span class="tooltip">
+                                            <svg class="w-3 h-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <span class="tooltiptext">Annual cash flow divided by equity invested</span>
+                                        </span>
+                                    </div>
+                                    <div class="text-2xl font-bold" id="coc-return">8.53%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-stone-200 dark:border-slate-600">
+                        <h4 class="font-semibold mb-4">Return Metrics Summary</h4>
+                        <div class="grid md:grid-cols-4 gap-4">
+                            <div class="text-center p-4 bg-stone-50 dark:bg-slate-700 rounded-lg">
+                                <div class="text-xs text-stone-500 dark:text-stone-400 mb-1">Unlevered Yield</div>
+                                <div class="text-xl font-bold text-teal-600" id="unlevered-yield">8.00%</div>
+                            </div>
+                            <div class="text-center p-4 bg-stone-50 dark:bg-slate-700 rounded-lg">
+                                <div class="text-xs text-stone-500 dark:text-stone-400 mb-1">Levered Yield</div>
+                                <div class="text-xl font-bold text-teal-600" id="levered-yield">8.53%</div>
+                            </div>
+                            <div class="text-center p-4 bg-stone-50 dark:bg-slate-700 rounded-lg">
+                                <div class="text-xs text-stone-500 dark:text-stone-400 mb-1">Equity Multiple (5Y)</div>
+                                <div class="text-xl font-bold text-teal-600" id="equity-multiple">1.52x</div>
+                            </div>
+                            <div class="text-center p-4 bg-stone-50 dark:bg-slate-700 rounded-lg">
+                                <div class="text-xs text-stone-500 dark:text-stone-400 mb-1">IRR (5Y Hold)</div>
+                                <div class="text-xl font-bold text-teal-600" id="irr-5y">11.2%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white dark:bg-slate-800 border-t border-stone-200 dark:border-slate-700 mt-auto py-8 text-center text-stone-400 text-xs no-print">
+        <p>CONFIDENTIAL OFFERING MEMORANDUM | T-12 Financials (Dec 24 - Nov 25) | Professional Analysis Platform v2.0</p>
+        <p class="mt-2">Press <span class="kbd">?</span> for keyboard shortcuts</p>
+    </footer>
+
+    <script>
+        // --- CORE DATA ---
+        const CORE_DATA = {
+            annualRevenue: 4382285,
+            annualExpenses: 3452883,
+            annualEBITDAR: 929402,
+            unitCount: 66,
+            t12Months: ['Dec 24', 'Jan 25', 'Feb 25', 'Mar 25', 'Apr 25', 'May 25', 'Jun 25', 'Jul 25', 'Aug 25', 'Sep 25', 'Oct 25', 'Nov 25'],
+            t12Revenue: [379677, 368000, 350000, 345000, 330285, 355000, 356315, 360000, 400809, 382594, 380157, 374155],
+            censusData: [49.55, 46.84, 45.04, 44.39, 41.87, 45.16, 45.07, 46.16, 51.32, 49.17, 48.61, 47.7],
+            expenseBreakdown: {
+                labels: ['Labor', 'Dietary', 'Utilities', 'Maint', 'G&A', 'Marketing', 'Mgmt/Ins/Tax'],
+                values: [2140787, 189908, 155380, 120851, 207173, 86322, 552462]
+            }
+        };
+
+        let charts = {};
+        let scenarios = JSON.parse(localStorage.getItem('caleoScenarios') || '[]');
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            updateValuation();
+            updateDebtAnalysis();
+            updateProForma();
+            loadScenarios();
+            setupEventListeners();
+            loadThemePreference();
+        });
+
+        function setupEventListeners() {
+            // Valuation
+            document.getElementById('cap-rate-slider').addEventListener('input', updateValuation);
+
+            // Debt
+            ['ltv-slider', 'interest-rate-slider', 'amort-slider'].forEach(id => {
+                document.getElementById(id)?.addEventListener('input', updateDebtAnalysis);
+            });
+
+            // Pro Forma
+            ['growth-rate', 'expense-growth', 'target-occupancy'].forEach(id => {
+                document.getElementById(id)?.addEventListener('input', updateProForma);
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', handleKeyboard);
+        }
+
+        // --- KEYBOARD NAVIGATION ---
+        function handleKeyboard(e) {
+            if (e.target.tagName === 'INPUT') return;
+
+            const key = e.key.toLowerCase();
+            const shortcuts = {
+                '1': 'valuation',
+                '2': 'expenses',
+                '3': 'financials',
+                '4': 'occupancy',
+                '5': 'pricing',
+                '6': 'projections',
+                '7': 'scenarios',
+                'd': toggleDarkMode,
+                'e': exportData,
+                'p': () => window.print(),
+                's': saveScenario,
+                '?': showKeyboardHelp
+            };
+
+            if (shortcuts[key]) {
+                e.preventDefault();
+                if (typeof shortcuts[key] === 'string') {
+                    switchTab(shortcuts[key]);
+                } else {
+                    shortcuts[key]();
+                }
+            }
+        }
+
+        function showKeyboardHelp() {
+            document.getElementById('keyboard-help-modal').style.display = 'block';
+        }
+
+        function closeKeyboardHelp() {
+            document.getElementById('keyboard-help-modal').style.display = 'none';
+        }
+
+        // --- DARK MODE ---
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+
+            document.getElementById('theme-icon-light').classList.toggle('hidden', !isDark);
+            document.getElementById('theme-icon-dark').classList.toggle('hidden', isDark);
+
+            localStorage.setItem('caleoTheme', isDark ? 'light' : 'dark');
+
+            // Update charts for dark mode
+            Object.values(charts).forEach(chart => {
+                if (chart) {
+                    chart.options.plugins.legend.labels.color = isDark ? '#334155' : '#e2e8f0';
+                    chart.options.scales.x.ticks.color = isDark ? '#334155' : '#e2e8f0';
+                    chart.options.scales.y.ticks.color = isDark ? '#334155' : '#e2e8f0';
+                    chart.update();
+                }
+            });
+        }
+
+        function loadThemePreference() {
+            const theme = localStorage.getItem('caleoTheme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('theme-icon-light').classList.add('hidden');
+                document.getElementById('theme-icon-dark').classList.remove('hidden');
+            }
+        }
+
+        // --- TAB NAVIGATION ---
+        function switchTab(tabId) {
+            document.querySelectorAll('[id^="view-"]').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(`view-${tabId}`)?.classList.remove('hidden');
+            document.getElementById(`btn-${tabId}`)?.classList.add('active');
+
+            setTimeout(() => {
+                Object.values(charts).forEach(chart => chart?.resize());
+            }, 50);
+        }
+
+        // --- VALUATION CALCULATIONS ---
+        function updateValuation() {
+            const capRate = parseFloat(document.getElementById('cap-rate-slider').value);
+            const value = CORE_DATA.annualEBITDAR / (capRate / 100);
+            const ppu = value / CORE_DATA.unitCount;
+
+            document.getElementById('cap-rate-display').textContent = capRate.toFixed(2) + '%';
+            document.getElementById('val-output').textContent = formatCurrency(value);
+            document.getElementById('ppu-output').textContent = formatCurrency(ppu);
+
+            // Update debt analysis purchase price
+            document.getElementById('debt-purchase-price').textContent = formatCurrency(value);
+            updateDebtAnalysis();
+        }
+
+        // --- DEBT ANALYSIS ---
+        function updateDebtAnalysis() {
+            const purchasePrice = CORE_DATA.annualEBITDAR / (parseFloat(document.getElementById('cap-rate-slider').value) / 100);
+            const ltv = parseFloat(document.getElementById('ltv-slider')?.value || 75) / 100;
+            const interestRate = parseFloat(document.getElementById('interest-rate-slider')?.value || 6.5) / 100;
+            const amortYears = parseFloat(document.getElementById('amort-slider')?.value || 25);
+
+            const loanAmount = purchasePrice * ltv;
+            const equityRequired = purchasePrice - loanAmount;
+
+            // Calculate annual debt service (PMT formula)
+            const monthlyRate = interestRate / 12;
+            const numPayments = amortYears * 12;
+            const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+            const annualDebtService = monthlyPayment * 12;
+
+            const dscr = CORE_DATA.annualEBITDAR / annualDebtService;
+            const annualCashFlow = CORE_DATA.annualEBITDAR - annualDebtService;
+            const cocReturn = (annualCashFlow / equityRequired) * 100;
+
+            // Update displays
+            document.getElementById('ltv-display').textContent = (ltv * 100).toFixed(0) + '%';
+            document.getElementById('interest-rate-display').textContent = (interestRate * 100).toFixed(2) + '%';
+            document.getElementById('amort-display').textContent = amortYears;
+            document.getElementById('loan-amount').textContent = formatCurrency(loanAmount);
+            document.getElementById('equity-required').textContent = formatCurrency(equityRequired);
+            document.getElementById('annual-debt-service').textContent = formatCurrency(annualDebtService);
+            document.getElementById('dscr').textContent = dscr.toFixed(2) + 'x';
+            document.getElementById('coc-return').textContent = cocReturn.toFixed(2) + '%';
+
+            // Return metrics
+            const unleveredYield = (CORE_DATA.annualEBITDAR / purchasePrice) * 100;
+            document.getElementById('unlevered-yield').textContent = unleveredYield.toFixed(2) + '%';
+            document.getElementById('levered-yield').textContent = cocReturn.toFixed(2) + '%';
+            document.getElementById('equity-multiple').textContent = ((annualCashFlow * 5 + equityRequired) / equityRequired).toFixed(2) + 'x';
+
+            // Simplified IRR calculation (5-year hold)
+            const irr = Math.pow((annualCashFlow * 5 + purchasePrice) / equityRequired, 1/5) - 1;
+            document.getElementById('irr-5y').textContent = (irr * 100).toFixed(1) + '%';
+        }
+
+        // --- PRO FORMA PROJECTIONS ---
+        function updateProForma() {
+            const growthRate = parseFloat(document.getElementById('growth-rate')?.value || 3) / 100;
+            const expenseGrowth = parseFloat(document.getElementById('expense-growth')?.value || 2.5) / 100;
+            const targetOcc = parseFloat(document.getElementById('target-occupancy')?.value || 85);
+
+            document.getElementById('growth-rate-display').textContent = (growthRate * 100).toFixed(1) + '%';
+            document.getElementById('expense-growth-display').textContent = (expenseGrowth * 100).toFixed(1) + '%';
+            document.getElementById('target-occupancy-display').textContent = targetOcc + '%';
+
+            const tbody = document.getElementById('proforma-table');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+            const years = [];
+            const revenues = [];
+            const expenses = [];
+            const ebitdars = [];
+
+            for (let year = 1; year <= 5; year++) {
+                const revenue = CORE_DATA.annualRevenue * Math.pow(1 + growthRate, year);
+                const expense = CORE_DATA.annualExpenses * Math.pow(1 + expenseGrowth, year);
+                const ebitdar = revenue - expense;
+                const margin = (ebitdar / revenue) * 100;
+                const occupancy = Math.min(targetOcc, 70 + (year * 3));
+
+                years.push(`Year ${year}`);
+                revenues.push(revenue);
+                expenses.push(expense);
+                ebitdars.push(ebitdar);
+
+                const row = `
+                    <tr>
+                        <td class="p-3 font-semibold">Year ${year}</td>
+                        <td class="p-3 text-right">${formatCurrency(revenue)}</td>
+                        <td class="p-3 text-right text-red-600">${formatCurrency(expense)}</td>
+                        <td class="p-3 text-right font-bold text-teal-600">${formatCurrency(ebitdar)}</td>
+                        <td class="p-3 text-right">${margin.toFixed(1)}%</td>
+                        <td class="p-3 text-right">${occupancy.toFixed(0)}%</td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            }
+
+            // Update chart
+            if (charts.proforma) {
+                charts.proforma.data.labels = years;
+                charts.proforma.data.datasets[0].data = revenues;
+                charts.proforma.data.datasets[1].data = ebitdars;
+                charts.proforma.update();
+            }
+        }
+
+        // --- SCENARIOS ---
+        function saveScenario() {
+            const name = prompt('Enter scenario name:');
+            if (!name) return;
+
+            const scenario = {
+                id: Date.now(),
+                name: name,
+                timestamp: new Date().toISOString(),
+                capRate: parseFloat(document.getElementById('cap-rate-slider').value),
+                ltv: parseFloat(document.getElementById('ltv-slider')?.value || 75),
+                interestRate: parseFloat(document.getElementById('interest-rate-slider')?.value || 6.5),
+                valuation: parseFloat(document.getElementById('val-output').textContent.replace(/[$,]/g, '')),
+                cocReturn: parseFloat(document.getElementById('coc-return')?.textContent.replace('%', '') || 0)
+            };
+
+            scenarios.push(scenario);
+            localStorage.setItem('caleoScenarios', JSON.stringify(scenarios));
+            loadScenarios();
+            alert('Scenario saved successfully!');
+        }
+
+        function loadScenarios() {
+            const grid = document.getElementById('scenarios-grid');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+
+            if (scenarios.length === 0) {
+                grid.innerHTML = '<p class="text-stone-500 col-span-3 text-center py-8">No saved scenarios. Save your first scenario to compare different assumptions.</p>';
+                return;
+            }
+
+            scenarios.forEach(scenario => {
+                const card = `
+                    <div class="scenario-card card">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold">${scenario.name}</h4>
+                            <button onclick="deleteScenario(${scenario.id})" class="text-red-500 hover:text-red-700">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between"><span class="text-stone-500">Cap Rate:</span><span class="font-semibold">${scenario.capRate.toFixed(2)}%</span></div>
+                            <div class="flex justify-between"><span class="text-stone-500">Valuation:</span><span class="font-semibold">${formatCurrency(scenario.valuation)}</span></div>
+                            <div class="flex justify-between"><span class="text-stone-500">LTV:</span><span class="font-semibold">${scenario.ltv.toFixed(0)}%</span></div>
+                            <div class="flex justify-between"><span class="text-stone-500">CoC Return:</span><span class="font-semibold text-teal-600">${scenario.cocReturn.toFixed(2)}%</span></div>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-stone-200 dark:border-slate-600 text-xs text-stone-400">
+                            ${new Date(scenario.timestamp).toLocaleDateString()}
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', card);
+            });
+        }
+
+        function deleteScenario(id) {
+            if (!confirm('Delete this scenario?')) return;
+            scenarios = scenarios.filter(s => s.id !== id);
+            localStorage.setItem('caleoScenarios', JSON.stringify(scenarios));
+            loadScenarios();
+        }
+
+        // --- EXPORT ---
+        function exportData() {
+            const data = {
+                property: 'Caleo Bay',
+                exportDate: new Date().toISOString(),
+                financials: {
+                    revenue: CORE_DATA.annualRevenue,
+                    expenses: CORE_DATA.annualExpenses,
+                    ebitdar: CORE_DATA.annualEBITDAR,
+                    margin: (CORE_DATA.annualEBITDAR / CORE_DATA.annualRevenue * 100).toFixed(2) + '%'
+                },
+                valuation: {
+                    capRate: document.getElementById('cap-rate-display').textContent,
+                    value: document.getElementById('val-output').textContent,
+                    pricePerUnit: document.getElementById('ppu-output').textContent
+                },
+                debt: {
+                    ltv: document.getElementById('ltv-display')?.textContent || 'N/A',
+                    loanAmount: document.getElementById('loan-amount')?.textContent || 'N/A',
+                    dscr: document.getElementById('dscr')?.textContent || 'N/A',
+                    cocReturn: document.getElementById('coc-return')?.textContent || 'N/A'
+                }
+            };
+
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `Caleo_Bay_Analysis_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // --- CHARTS ---
+        function initCharts() {
+            const commonOpts = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            };
+
+            // Revenue Chart
+            const revenueCtx = document.getElementById('revenueChart');
+            if (revenueCtx) {
+                charts.revenue = new Chart(revenueCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: CORE_DATA.t12Months,
+                        datasets: [{
+                            label: 'Monthly Revenue',
+                            data: CORE_DATA.t12Revenue,
+                            backgroundColor: '#2dd4bf',
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        ...commonOpts,
+                        scales: {
+                            y: { beginAtZero: false, min: 300000 }
+                        }
+                    }
+                });
+            }
+
+            // Expense Chart
+            const expenseCtx = document.getElementById('expenseChart');
+            if (expenseCtx) {
+                charts.expense = new Chart(expenseCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: CORE_DATA.expenseBreakdown.labels,
+                        datasets: [{
+                            data: CORE_DATA.expenseBreakdown.values,
+                            backgroundColor: ['#ef4444', '#f97316', '#fbbf24', '#84cc16', '#22c55e', '#06b6d4', '#64748b']
+                        }]
+                    },
+                    options: {
+                        ...commonOpts,
+                        cutout: '65%'
+                    }
+                });
+            }
+
+            // Census Chart
+            const censusCtx = document.getElementById('censusChart');
+            if (censusCtx) {
+                charts.census = new Chart(censusCtx, {
+                    type: 'line',
+                    data: {
+                        labels: CORE_DATA.t12Months,
+                        datasets: [{
+                            label: 'Census',
+                            data: CORE_DATA.censusData,
+                            borderColor: '#4f46e5',
+                            backgroundColor: '#4f46e51a',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        ...commonOpts,
+                        scales: {
+                            y: { beginAtZero: false, min: 35 }
+                        }
+                    }
+                });
+            }
+
+            // Pro Forma Chart
+            const proformaCtx = document.getElementById('proformaChart');
+            if (proformaCtx) {
+                charts.proforma = new Chart(proformaCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Revenue',
+                            data: [],
+                            backgroundColor: '#2dd4bf'
+                        }, {
+                            label: 'EBITDAR',
+                            data: [],
+                            backgroundColor: '#0d9488'
+                        }]
+                    },
+                    options: commonOpts
+                });
+            }
+        }
+
+        // --- UTILITIES ---
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(value);
+        }
+    </script>
+</body>
+</html>
