@@ -458,10 +458,149 @@
             </div>
         </div>
 
-        <div id="view-pricing" class="hidden">
+        <div id="view-pricing" class="hidden space-y-6 animate-fade-in">
+            <div class="card border-l-4 border-blue-500 shadow-md">
+                <h3 class="text-xl font-bold mb-2">Unit Pricing Calculator</h3>
+                <p class="text-sm text-stone-500 dark:text-stone-400 mb-6">Interactive rate calculator with care level adjustments</p>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Calculator -->
+                    <div>
+                        <h4 class="font-semibold mb-4">Select Unit Type</h4>
+                        <div class="grid grid-cols-3 gap-3 mb-6">
+                            <button onclick="selectUnit('SHRD', 5100)" class="calc-btn active px-4 py-3 border-2 rounded-lg text-sm text-center transition-all hover:shadow-md" data-type="SHRD">
+                                <div class="font-semibold">Shared</div>
+                                <div class="text-lg font-bold text-teal-600">$5,100</div>
+                                <div class="text-xs text-stone-500">per month</div>
+                            </button>
+                            <button onclick="selectUnit('SEMI', 6100)" class="calc-btn px-4 py-3 border-2 rounded-lg text-sm text-center transition-all hover:shadow-md" data-type="SEMI">
+                                <div class="font-semibold">Semi-Private</div>
+                                <div class="text-lg font-bold text-teal-600">$6,100</div>
+                                <div class="text-xs text-stone-500">per month</div>
+                            </button>
+                            <button onclick="selectUnit('PVT', 7400)" class="calc-btn px-4 py-3 border-2 rounded-lg text-sm text-center transition-all hover:shadow-md" data-type="PVT">
+                                <div class="font-semibold">Private</div>
+                                <div class="text-lg font-bold text-teal-600">$7,400</div>
+                                <div class="text-xs text-stone-500">per month</div>
+                            </button>
+                        </div>
+
+                        <div class="mb-6">
+                            <div class="flex justify-between mb-2">
+                                <label class="text-sm font-medium">Care Level</label>
+                                <span class="text-sm font-bold text-teal-600" id="care-level-display">Level 0 (+$0)</span>
+                            </div>
+                            <input type="range" min="0" max="4" value="0" class="w-full" id="care-slider">
+                            <div class="flex justify-between text-xs text-stone-400 mt-1">
+                                <span>Basic</span>
+                                <span>Level 1</span>
+                                <span>Level 2</span>
+                                <span>Level 3</span>
+                                <span>Level 4</span>
+                            </div>
+                            <p class="text-xs text-stone-500 dark:text-stone-400 mt-2">Each care level adds $500/month for additional services and assistance</p>
+                        </div>
+
+                        <div class="border-t-2 border-stone-200 dark:border-slate-600 pt-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-stone-600 dark:text-stone-400">Base Rate:</span>
+                                <span class="text-lg font-semibold" id="base-rate-display">$5,100</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-sm text-stone-600 dark:text-stone-400">Care Level Add-on:</span>
+                                <span class="text-lg font-semibold" id="care-addon-display">$0</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-teal-600 dark:bg-teal-700 text-white rounded-lg">
+                                <span class="font-semibold">Total Monthly Rate:</span>
+                                <span class="text-3xl font-bold" id="calc-total">$5,100</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rate Card -->
+                    <div>
+                        <h4 class="font-semibold mb-4">Current Rate Card</h4>
+                        <div class="space-y-3">
+                            <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-semibold text-blue-900 dark:text-blue-300">Shared Room</span>
+                                    <span class="text-xl font-bold text-blue-700 dark:text-blue-400">$5,100</span>
+                                </div>
+                                <p class="text-xs text-blue-600 dark:text-blue-400">2 residents per room</p>
+                            </div>
+
+                            <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-100 dark:border-purple-800">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-semibold text-purple-900 dark:text-purple-300">Semi-Private</span>
+                                    <span class="text-xl font-bold text-purple-700 dark:text-purple-400">$6,100</span>
+                                </div>
+                                <p class="text-xs text-purple-600 dark:text-purple-400">Shared with divider</p>
+                            </div>
+
+                            <div class="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-100 dark:border-orange-800">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-semibold text-orange-900 dark:text-orange-300">Private Room</span>
+                                    <span class="text-xl font-bold text-orange-700 dark:text-orange-400">$7,400</span>
+                                </div>
+                                <p class="text-xs text-orange-600 dark:text-orange-400">Single occupancy</p>
+                            </div>
+
+                            <div class="mt-6 p-4 bg-stone-50 dark:bg-slate-700 rounded-lg">
+                                <h5 class="font-semibold mb-3 text-sm">Care Level Pricing</h5>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between"><span>Level 0 (Basic Care):</span><span class="font-semibold">+$0</span></div>
+                                    <div class="flex justify-between"><span>Level 1:</span><span class="font-semibold">+$500</span></div>
+                                    <div class="flex justify-between"><span>Level 2:</span><span class="font-semibold">+$1,000</span></div>
+                                    <div class="flex justify-between"><span>Level 3:</span><span class="font-semibold">+$1,500</span></div>
+                                    <div class="flex justify-between"><span>Level 4 (Max Care):</span><span class="font-semibold">+$2,000</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue Optimizer -->
             <div class="card">
-                <h3 class="text-xl font-bold mb-4">Pricing Calculator</h3>
-                <p class="text-sm text-stone-500 dark:text-stone-400">Interactive rate calculator with care levels</p>
+                <h3 class="text-xl font-bold mb-4">Revenue Optimizer</h3>
+                <p class="text-sm text-stone-500 dark:text-stone-400 mb-6">Model the impact of rate increases and occupancy changes</p>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Rate Increase %</label>
+                        <input type="range" min="0" max="10" step="0.5" value="0" id="rate-increase-slider" class="w-full">
+                        <div class="text-center text-sm font-bold text-teal-600 mt-1"><span id="rate-increase-display">0.0%</span></div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Target Occupancy</label>
+                        <input type="range" min="60" max="95" step="1" value="70" id="optimizer-occupancy" class="w-full">
+                        <div class="text-center text-sm font-bold text-teal-600 mt-1"><span id="optimizer-occupancy-display">70%</span></div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Care Level Mix</label>
+                        <input type="range" min="0" max="2" step="0.5" value="1" id="care-mix-slider" class="w-full">
+                        <div class="text-center text-sm font-bold text-teal-600 mt-1"><span id="care-mix-display">Avg Level 1</span></div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
+                        <div class="text-xs text-blue-600 dark:text-blue-400 mb-1">Projected Monthly</div>
+                        <div class="text-2xl font-bold" id="projected-monthly">$327,870</div>
+                    </div>
+                    <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
+                        <div class="text-xs text-green-600 dark:text-green-400 mb-1">Projected Annual</div>
+                        <div class="text-2xl font-bold" id="projected-annual">$3,934,440</div>
+                    </div>
+                    <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-center">
+                        <div class="text-xs text-purple-600 dark:text-purple-400 mb-1">Revenue Increase</div>
+                        <div class="text-2xl font-bold text-purple-700 dark:text-purple-400" id="revenue-increase">-$447,845</div>
+                    </div>
+                    <div class="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg text-center">
+                        <div class="text-xs text-orange-600 dark:text-orange-400 mb-1">Avg Rate/Unit</div>
+                        <div class="text-2xl font-bold" id="avg-rate-unit">$7,089</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1108,6 +1247,90 @@
                 maximumFractionDigits: 0
             }).format(value);
         }
+
+        // --- PRICING CALCULATOR ---
+        let currentCalculatorRate = 5100;
+        let currentCareLevel = 0;
+
+        function selectUnit(type, rate) {
+            currentCalculatorRate = rate;
+            document.querySelectorAll('.calc-btn').forEach(b => {
+                if(b.dataset.type === type) {
+                    b.classList.add('bg-teal-50','border-teal-500','text-teal-700', 'active');
+                    b.classList.remove('border-stone-300');
+                } else {
+                    b.classList.remove('bg-teal-50','border-teal-500','text-teal-700', 'active');
+                    b.classList.add('border-stone-300');
+                }
+            });
+            updateCalculator();
+        }
+
+        function updateCalculator() {
+            const careSlider = document.getElementById('care-slider');
+            if (!careSlider) return;
+
+            currentCareLevel = parseInt(careSlider.value);
+            const careAddon = currentCareLevel * 500;
+            const total = currentCalculatorRate + careAddon;
+
+            document.getElementById('care-level-display').textContent = `Level ${currentCareLevel} (+$${careAddon.toLocaleString()})`;
+            document.getElementById('base-rate-display').textContent = formatCurrency(currentCalculatorRate);
+            document.getElementById('care-addon-display').textContent = formatCurrency(careAddon);
+            document.getElementById('calc-total').textContent = formatCurrency(total);
+        }
+
+        // --- REVENUE OPTIMIZER ---
+        function updateRevenueOptimizer() {
+            const rateIncrease = parseFloat(document.getElementById('rate-increase-slider')?.value || 0) / 100;
+            const occupancy = parseFloat(document.getElementById('optimizer-occupancy')?.value || 70) / 100;
+            const careMix = parseFloat(document.getElementById('care-mix-slider')?.value || 1);
+
+            // Base calculations
+            const baseRate = 6200; // Average of unit types
+            const careLevelAddon = careMix * 500;
+            const avgRate = (baseRate + careLevelAddon) * (1 + rateIncrease);
+            const occupiedUnits = Math.round(CORE_DATA.unitCount * occupancy);
+
+            const projectedMonthly = avgRate * occupiedUnits;
+            const projectedAnnual = projectedMonthly * 12;
+            const revenueChange = projectedAnnual - CORE_DATA.annualRevenue;
+
+            // Update displays
+            document.getElementById('rate-increase-display').textContent = (rateIncrease * 100).toFixed(1) + '%';
+            document.getElementById('optimizer-occupancy-display').textContent = Math.round(occupancy * 100) + '%';
+
+            const careMixLabels = ['Basic', 'Avg Level 1', 'Avg Level 2'];
+            document.getElementById('care-mix-display').textContent = careMixLabels[careMix * 2] || 'Custom';
+
+            document.getElementById('projected-monthly').textContent = formatCurrency(projectedMonthly);
+            document.getElementById('projected-annual').textContent = formatCurrency(projectedAnnual);
+
+            const increaseEl = document.getElementById('revenue-increase');
+            increaseEl.textContent = (revenueChange >= 0 ? '+' : '') + formatCurrency(revenueChange);
+            increaseEl.className = revenueChange >= 0 ? 'text-2xl font-bold text-green-700 dark:text-green-400' : 'text-2xl font-bold text-red-700 dark:text-red-400';
+
+            document.getElementById('avg-rate-unit').textContent = formatCurrency(avgRate);
+        }
+
+        // Setup pricing calculator event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const careSlider = document.getElementById('care-slider');
+            if (careSlider) {
+                careSlider.addEventListener('input', updateCalculator);
+            }
+
+            ['rate-increase-slider', 'optimizer-occupancy', 'care-mix-slider'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', updateRevenueOptimizer);
+                }
+            });
+
+            // Initialize
+            updateCalculator();
+            updateRevenueOptimizer();
+        });
     </script>
 </body>
 </html>
