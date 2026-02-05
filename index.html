@@ -197,6 +197,7 @@
                 <div class="flex justify-between"><span>Pricing Tab</span><span class="kbd">5</span></div>
                 <div class="flex justify-between"><span>Projections Tab</span><span class="kbd">6</span></div>
                 <div class="flex justify-between"><span>Scenarios Tab</span><span class="kbd">7</span></div>
+                <div class="flex justify-between"><span>Investment Highlights</span><span class="kbd">8</span></div>
 
                 <div class="flex justify-between py-2 border-b mt-4"><span>Actions</span><span></span></div>
                 <div class="flex justify-between"><span>Toggle Dark Mode</span><span class="kbd">D</span></div>
@@ -250,6 +251,7 @@
                 <button onclick="switchTab('pricing')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-pricing">Pricing <span class="kbd ml-1">5</span></button>
                 <button onclick="switchTab('projections')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-projections">Pro Forma <span class="kbd ml-1">6</span></button>
                 <button onclick="switchTab('scenarios')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-scenarios">Scenarios <span class="kbd ml-1">7</span></button>
+                <button onclick="switchTab('highlights')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-highlights">Investment Highlights <span class="kbd ml-1">8</span></button>
                 <button onclick="switchTab('debt')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-debt">Debt Analysis</button>
             </nav>
         </div>
@@ -669,6 +671,178 @@
             </div>
         </div>
 
+        <!-- VIEW: INVESTMENT HIGHLIGHTS -->
+        <div id="view-highlights" class="hidden space-y-6 animate-fade-in">
+            <div class="card border-l-4 border-purple-500 shadow-md">
+                <h3 class="text-2xl font-bold mb-2 flex items-center">
+                    <svg class="w-8 h-8 mr-3 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Investment Highlights
+                </h3>
+                <p class="text-sm text-stone-500 dark:text-stone-400 mb-6">Key strengths and considerations for the Caleo Bay acquisition</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-6">
+
+                <!-- INVESTMENT STRENGTHS -->
+                <div class="card border-l-4 border-green-500 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-7 h-7 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-green-800 dark:text-green-400">Investment Strengths</h4>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Pro 1 -->
+                        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-green-600 dark:bg-green-700 rounded-full flex items-center justify-center text-white font-bold mr-3">1</div>
+                                <div>
+                                    <h5 class="font-bold text-green-900 dark:text-green-300 mb-1">Stable Cash Flow Profile</h5>
+                                    <p class="text-sm text-green-800 dark:text-green-400">$929k annual EBITDAR with 21.2% margin demonstrates consistent operational performance across T-12 period despite occupancy fluctuations.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pro 2 -->
+                        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-green-600 dark:bg-green-700 rounded-full flex items-center justify-center text-white font-bold mr-3">2</div>
+                                <div>
+                                    <h5 class="font-bold text-green-900 dark:text-green-300 mb-1">Significant Value-Add Opportunity</h5>
+                                    <p class="text-sm text-green-800 dark:text-green-400">Current 70% occupancy provides clear path to 85%+ stabilization. Each 1% occupancy gain = ~$66k additional annual revenue with minimal incremental expense.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pro 3 -->
+                        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-green-600 dark:bg-green-700 rounded-full flex items-center justify-center text-white font-bold mr-3">3</div>
+                                <div>
+                                    <h5 class="font-bold text-green-900 dark:text-green-300 mb-1">Defensive Asset Class</h5>
+                                    <p class="text-sm text-green-800 dark:text-green-400">Senior living facilities benefit from demographic tailwinds (aging population) and recession-resistant demand. Essential service with limited supply growth in most markets.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pro 4 -->
+                        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-green-600 dark:bg-green-700 rounded-full flex items-center justify-center text-white font-bold mr-3">4</div>
+                                <div>
+                                    <h5 class="font-bold text-green-900 dark:text-green-300 mb-1">Multiple Revenue Levers</h5>
+                                    <p class="text-sm text-green-800 dark:text-green-400">Three unit types + tiered care levels create pricing flexibility. Ability to capture $500-$2,000/month in additional care revenue as residents age in place.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pro 5 -->
+                        <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-green-600 dark:bg-green-700 rounded-full flex items-center justify-center text-white font-bold mr-3">5</div>
+                                <div>
+                                    <h5 class="font-bold text-green-900 dark:text-green-300 mb-1">Attractive Unit Economics</h5>
+                                    <p class="text-sm text-green-800 dark:text-green-400">$176k price per unit at 8% cap rate represents compelling value vs. replacement cost. EBITDAR per unit of $14k provides cushion for operational improvements.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INVESTMENT RISKS -->
+                <div class="card border-l-4 border-red-500 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-7 h-7 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-red-800 dark:text-red-400">Key Considerations</h4>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Con 1 -->
+                        <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-red-600 dark:bg-red-700 rounded-full flex items-center justify-center text-white font-bold mr-3">1</div>
+                                <div>
+                                    <h5 class="font-bold text-red-900 dark:text-red-300 mb-1">Below-Market Occupancy</h5>
+                                    <p class="text-sm text-red-800 dark:text-red-400">70% occupancy significantly below industry standard of 85-90%. Requires active management to drive census growth and marketing investment may be needed.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Con 2 -->
+                        <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-red-600 dark:bg-red-700 rounded-full flex items-center justify-center text-white font-bold mr-3">2</div>
+                                <div>
+                                    <h5 class="font-bold text-red-900 dark:text-red-300 mb-1">Labor-Intensive Operations</h5>
+                                    <p class="text-sm text-red-800 dark:text-red-400">$2.14M labor expense (62% of OpEx) creates vulnerability to wage inflation. Tight labor markets in healthcare sectors could pressure margins without pricing power.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Con 3 -->
+                        <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-red-600 dark:bg-red-700 rounded-full flex items-center justify-center text-white font-bold mr-3">3</div>
+                                <div>
+                                    <h5 class="font-bold text-red-900 dark:text-red-300 mb-1">Regulatory & Compliance Risk</h5>
+                                    <p class="text-sm text-red-800 dark:text-red-400">Senior living facilities face extensive state regulations, licensing requirements, and potential liability issues. Changes in healthcare policy could impact operations or reimbursement.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Con 4 -->
+                        <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-red-600 dark:bg-red-700 rounded-full flex items-center justify-center text-white font-bold mr-3">4</div>
+                                <div>
+                                    <h5 class="font-bold text-red-900 dark:text-red-300 mb-1">Limited Exit Liquidity</h5>
+                                    <p class="text-sm text-red-800 dark:text-red-400">Senior living assets have smaller buyer pool vs. traditional multifamily. Exit timing may be constrained, and specialized operators may demand specific performance metrics before acquisition.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Con 5 -->
+                        <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 bg-red-600 dark:bg-red-700 rounded-full flex items-center justify-center text-white font-bold mr-3">5</div>
+                                <div>
+                                    <h5 class="font-bold text-red-900 dark:text-red-300 mb-1">Operational Complexity</h5>
+                                    <p class="text-sm text-red-800 dark:text-red-400">Requires experienced senior living operator with healthcare expertise. Not a passive investment—success depends on quality of care, staffing, and active census management.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary / Bottom Line -->
+            <div class="card bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border border-purple-200 dark:border-purple-800">
+                <div class="flex items-start">
+                    <svg class="w-8 h-8 text-purple-600 dark:text-purple-400 mr-4 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                    <div>
+                        <h4 class="text-xl font-bold text-purple-900 dark:text-purple-300 mb-3">Investment Summary</h4>
+                        <p class="text-sm text-purple-800 dark:text-purple-400 leading-relaxed mb-3">
+                            Caleo Bay represents a <strong>value-add senior living opportunity</strong> with clear upside from occupancy stabilization and operational improvements. The property's stable cash flow and defensive asset class characteristics are attractive, but success will require an experienced operator capable of driving census growth and managing labor costs effectively.
+                        </p>
+                        <p class="text-sm text-purple-800 dark:text-purple-400 leading-relaxed">
+                            <strong>Best suited for:</strong> Operators with senior living expertise seeking below-replacement-cost acquisitions with 15%+ occupancy upside runway. The $176k/unit basis provides cushion for value creation through proven operational playbook execution.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="view-debt" class="hidden">
             <div class="space-y-6">
                 <div class="card">
@@ -859,6 +1033,7 @@
                 '5': 'pricing',
                 '6': 'projections',
                 '7': 'scenarios',
+                '8': 'highlights',
                 'd': toggleDarkMode,
                 'e': exportData,
                 'p': () => window.print(),
