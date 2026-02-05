@@ -619,9 +619,14 @@
                         <div class="text-center text-sm font-bold text-teal-600 mt-1"><span id="growth-rate-display">3.0%</span></div>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium mb-2">Expense Growth</label>
-                        <input type="range" min="0" max="8" step="0.5" value="2.5" id="expense-growth" class="w-full">
-                        <div class="text-center text-sm font-bold text-red-600 mt-1"><span id="expense-growth-display">2.5%</span></div>
+                        <label class="block text-sm font-medium mb-2">Expense Growth/Reduction</label>
+                        <input type="range" min="-7" max="7" step="0.5" value="2.5" id="expense-growth" class="w-full">
+                        <div class="text-center text-sm font-bold mt-1"><span id="expense-growth-display">+2.5%</span></div>
+                        <div class="flex justify-between text-xs text-stone-400 mt-1">
+                            <span>-7% (Cost Cuts)</span>
+                            <span>0%</span>
+                            <span>+7% (Inflation)</span>
+                        </div>
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-2">Target Occupancy</label>
@@ -1237,7 +1242,20 @@
             const targetOcc = parseFloat(document.getElementById('target-occupancy')?.value || 85);
 
             document.getElementById('growth-rate-display').textContent = (growthRate * 100).toFixed(1) + '%';
-            document.getElementById('expense-growth-display').textContent = (expenseGrowth * 100).toFixed(1) + '%';
+
+            // Color code expense growth display
+            const expenseGrowthPct = expenseGrowth * 100;
+            const expenseDisplay = document.getElementById('expense-growth-display');
+            const expenseSign = expenseGrowthPct >= 0 ? '+' : '';
+            expenseDisplay.textContent = expenseSign + expenseGrowthPct.toFixed(1) + '%';
+
+            // Change color based on positive (red) or negative (green)
+            if (expenseGrowthPct < 0) {
+                expenseDisplay.className = 'text-sm font-bold text-green-600 dark:text-green-400';
+            } else {
+                expenseDisplay.className = 'text-sm font-bold text-red-600 dark:text-red-400';
+            }
+
             document.getElementById('target-occupancy-display').textContent = targetOcc + '%';
 
             const tbody = document.getElementById('proforma-table');
