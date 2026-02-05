@@ -196,8 +196,9 @@
                 <div class="flex justify-between"><span>Occupancy Tab</span><span class="kbd">4</span></div>
                 <div class="flex justify-between"><span>Pricing Tab</span><span class="kbd">5</span></div>
                 <div class="flex justify-between"><span>Projections Tab</span><span class="kbd">6</span></div>
-                <div class="flex justify-between"><span>Scenarios Tab</span><span class="kbd">7</span></div>
-                <div class="flex justify-between"><span>Investment Highlights</span><span class="kbd">8</span></div>
+                <div class="flex justify-between"><span>Debt Analysis</span><span class="kbd">7</span></div>
+                <div class="flex justify-between"><span>Scenarios Tab</span><span class="kbd">8</span></div>
+                <div class="flex justify-between"><span>Investment Highlights</span><span class="kbd">9</span></div>
 
                 <div class="flex justify-between py-2 border-b mt-4"><span>Actions</span><span></span></div>
                 <div class="flex justify-between"><span>Toggle Dark Mode</span><span class="kbd">D</span></div>
@@ -250,9 +251,9 @@
                 <button onclick="switchTab('occupancy')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-occupancy">Occupancy <span class="kbd ml-1">4</span></button>
                 <button onclick="switchTab('pricing')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-pricing">Pricing <span class="kbd ml-1">5</span></button>
                 <button onclick="switchTab('projections')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-projections">Pro Forma <span class="kbd ml-1">6</span></button>
-                <button onclick="switchTab('scenarios')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-scenarios">Scenarios <span class="kbd ml-1">7</span></button>
-                <button onclick="switchTab('highlights')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-highlights">Investment Highlights <span class="kbd ml-1">8</span></button>
-                <button onclick="switchTab('debt')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-debt">Debt Analysis</button>
+                <button onclick="switchTab('debt')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-debt">Debt Analysis <span class="kbd ml-1">7</span></button>
+                <button onclick="switchTab('scenarios')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-scenarios">Scenarios <span class="kbd ml-1">8</span></button>
+                <button onclick="switchTab('highlights')" class="tab-btn px-3 py-2 text-sm font-medium whitespace-nowrap" id="btn-highlights">Investment Highlights <span class="kbd ml-1">9</span></button>
             </nav>
         </div>
     </header>
@@ -1078,8 +1079,9 @@
                 '4': 'occupancy',
                 '5': 'pricing',
                 '6': 'projections',
-                '7': 'scenarios',
-                '8': 'highlights',
+                '7': 'debt',
+                '8': 'scenarios',
+                '9': 'highlights',
                 'd': toggleDarkMode,
                 'e': exportData,
                 'p': () => window.print(),
@@ -1420,6 +1422,8 @@
             // Expense Chart
             const expenseCtx = document.getElementById('expenseChart');
             if (expenseCtx) {
+                const totalExpenses = CORE_DATA.expenseBreakdown.values.reduce((a, b) => a + b, 0);
+
                 charts.expense = new Chart(expenseCtx, {
                     type: 'doughnut',
                     data: {
@@ -1431,7 +1435,43 @@
                     },
                     options: {
                         ...commonOpts,
-                        cutout: '65%'
+                        cutout: '65%',
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'right',
+                                labels: {
+                                    generateLabels: function(chart) {
+                                        const data = chart.data;
+                                        return data.labels.map((label, i) => {
+                                            const value = data.datasets[0].data[i];
+                                            const percentage = ((value / totalExpenses) * 100).toFixed(1);
+                                            return {
+                                                text: `${label}: ${percentage}%`,
+                                                fillStyle: data.datasets[0].backgroundColor[i],
+                                                hidden: false,
+                                                index: i
+                                            };
+                                        });
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.parsed;
+                                        const percentage = ((value / totalExpenses) * 100).toFixed(1);
+                                        const formatted = new Intl.NumberFormat('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                            maximumFractionDigits: 0
+                                        }).format(value);
+                                        return `${label}: ${formatted} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
                     }
                 });
             }
