@@ -1,173 +1,530 @@
 const modules = [
   {
     id: "m1",
-    title: "Industry Architecture",
-    duration: "25 min",
-    focus: "Understand the senior living and memory care market structure before making community-level operating decisions.",
+    title: "Welcome & Overview",
+    duration: "20 min",
+    focus: "Get oriented to the memory care industry and how this course blends market fundamentals with Chancellor-specific execution in Sacramento and Oregon.",
     outcomes: [
-      "Differentiate assisted living, memory care, residential care, and skilled nursing roles in the care continuum.",
-      "Identify core revenue and margin drivers for memory care operations.",
-      "Recognize the relationship between risk, cap rates, and asset valuation."
+      "Understand the full 10-module learning path and what each module produces.",
+      "Define what success looks like for your role (owner, operator, executive director, regional leader).",
+      "Set a practical learning cadence tied to business decisions you need to make now."
     ],
     exercise: [
-      "Draw the full resident journey from independent living to higher-acuity settings.",
-      "Build a one-page value tree linking occupancy, rate, labor efficiency, and NOI."
+      "Write your top 5 operating questions (staffing, compliance, reimbursement, growth, quality).",
+      "Define one near-term deliverable: budget model, staffing plan, compliance calendar, or board update."
+    ],
+    sections: [
+      {
+        title: "Course Scope",
+        body: "This program is built to teach both the industry and the Chancellor operating model. It covers market architecture, legal/regulatory differences, staffing and care design, payment systems, quality control, and forward-looking trends in dementia care."
+      },
+      {
+        title: "What You Will Build",
+        bullets: [
+          "An operator-grade understanding of CA RCFE and OR memory-care operations.",
+          "A location-aware staffing and revenue framework for Revere, Maple Valley, Fircrest, and Cherrywood.",
+          "A compliance and quality control cadence that can be operationalized within 90 days."
+        ]
+      },
+      {
+        title: "Learning Sequence",
+        table: {
+          headers: ["Phase", "Modules", "Primary Output"],
+          rows: [
+            ["Foundations", "1-3", "Industry + CHC operating model orientation"],
+            ["Execution", "4-8", "Regulatory, staffing, payment, and site-specific plans"],
+            ["Control + Future", "9-10", "QA framework + trend-aware strategy" ]
+          ]
+        }
+      }
     ],
     checkpoint: {
-      prompt: "In senior housing valuation, what usually happens to property value when perceived risk rises and the cap rate expands?",
+      prompt: "What is the primary purpose of this course design?",
       options: [
-        "Value generally declines.",
-        "Value generally increases.",
-        "Value is unchanged."
+        "Only memorize regulations.",
+        "Only learn Chancellor facility addresses.",
+        "Combine industry understanding with practical operation of Chancellor communities."
       ],
-      answer: 0,
-      rationale: "Holding NOI constant, higher cap rates imply lower valuation."
+      answer: 2,
+      rationale: "The program is intentionally dual-track: industry mechanics plus Chancellor execution."
     }
   },
   {
     id: "m2",
-    title: "Portfolio Map",
-    duration: "20 min",
-    focus: "Identify each Chancellor community's license class, bed profile, and operating model before setting staffing or budget assumptions.",
+    title: "Industry Overview",
+    duration: "30 min",
+    focus: "Understand where memory care sits in senior housing, why demand is rising, and how operator economics are structured.",
     outcomes: [
-      "Separate RCFE, ALF, and RCF operational implications.",
-      "Pinpoint where memory care unit counts differ from total beds.",
-      "Use site data to drive realistic occupancy targets."
+      "Differentiate assisted living, memory care, residential care, and nursing-level care within the continuum.",
+      "Understand major demand drivers and why dementia care remains a growth segment.",
+      "Connect occupancy, rate, labor, risk, and cap-rate movement to value creation."
     ],
     exercise: [
-      "Build one matrix with license type, licensed beds, memory care units, and payer channels for all four locations.",
-      "Flag which communities can align to shared policies versus site-specific SOPs."
+      "Draw your local care-continuum map from home-based care to higher-acuity placement.",
+      "Build a one-page value tree linking census, pricing, labor efficiency, and NOI."
+    ],
+    sections: [
+      {
+        title: "Memory Care in the Continuum",
+        body: "Memory care is not usually a standalone statutory license label; it is typically delivered under state residential care frameworks with dementia-specific requirements layered on top.",
+        table: {
+          headers: ["Level", "Typical Resident Need", "Operational Profile"],
+          rows: [
+            ["Independent Living", "Low assistance", "Hospitality-forward, minimal direct care"],
+            ["Assisted Living", "ADL support", "Daily support + med management + social programming"],
+            ["Memory Care", "Dementia-specific support", "Secured environment + trained staff + behavior-informed care"],
+            ["Skilled Nursing", "High clinical acuity", "24/7 nursing + complex medical oversight"]
+          ]
+        }
+      },
+      {
+        title: "Market and Operator Structure",
+        bullets: [
+          "Operators range from national chains to regional groups like CHC.",
+          "Regional operators often win through local relationships and operating consistency.",
+          "Memory care demand is influenced by aging demographics, family caregiver burden, and local workforce availability."
+        ]
+      },
+      {
+        title: "Economics and Risk",
+        bullets: [
+          "Labor is usually the largest controllable expense category.",
+          "Occupancy velocity and move-out management drive short-cycle financial outcomes.",
+          "As perceived risk rises, cap rates typically expand and property values compress (holding NOI constant)."
+        ]
+      }
     ],
     checkpoint: {
-      prompt: "Which Chancellor Oregon site is listed as a Residential Care Facility (RCF)?",
-      options: ["Maple Valley Memory Care", "Fircrest Senior Living", "Cherrywood Memory Care"],
-      answer: 1,
-      rationale: "Fircrest is listed in Oregon records as an RCF; Maple Valley and Cherrywood are ALFs."
+      prompt: "In senior housing valuation, what usually happens when cap rates expand and NOI is unchanged?",
+      options: ["Value typically declines", "Value typically increases", "Value is unchanged"],
+      answer: 0,
+      rationale: "Higher cap rates imply lower valuation when NOI is constant."
     }
   },
   {
     id: "m3",
-    title: "Staffing Architecture",
-    duration: "30 min",
-    focus: "Build role coverage for dementia operations across direct care, clinical oversight, and business office execution.",
+    title: "The CHC Model",
+    duration: "35 min",
+    focus: "Understand Chancellor's operating architecture, care philosophy, and community design assumptions.",
     outcomes: [
-      "Define administrator and nurse leadership responsibilities by site type.",
-      "Set shift-level caregiver and med-tech coverage assumptions.",
-      "Separate billable clinical work from occupancy-critical non-billable work."
+      "Map parent/management/community-level entity logic for risk separation and control.",
+      "Understand how a cottage-style memory environment changes staffing and programming.",
+      "Connect CHC service philosophy to measurable operating behaviors."
     ],
     exercise: [
-      "Create a 24/7 shift grid for each community (day/evening/night).",
-      "Draft role minimums for admissions, med pass, behavior support, and family communication."
+      "Build your CHC governance map from parent entity to community operations.",
+      "Document three operational implications of cottage-style memory care design."
+    ],
+    sections: [
+      {
+        title: "Operating Structure",
+        body: "CHC is typically organized with a parent/management layer and community-level operating entities, a common pattern used to separate liability while centralizing standards, oversight, and support services."
+      },
+      {
+        title: "Care Philosophy",
+        bullets: [
+          "Person-centered programming that respects resident identity and remaining abilities.",
+          "Behavior-informed support focused on dignity, safety, and quality of life.",
+          "Family communication as a core part of care delivery, not a side function."
+        ]
+      },
+      {
+        title: "Service Stack",
+        table: {
+          headers: ["Service Element", "Operational Requirement", "Value Impact"],
+          rows: [
+            ["Residential Memory Care", "24/7 trained staffing + secure environment", "Census stability + quality outcomes"],
+            ["Respite / Transitional Support", "Short-stay workflows and intake flexibility", "Referral pipeline + revenue diversity"],
+            ["Family Education / Support", "Consistent communication cadence", "Trust, retention, reputation"]
+          ]
+        }
+      }
     ],
     checkpoint: {
-      prompt: "What is the biggest staffing risk if one template is copied to all four communities without adjustment?",
+      prompt: "Why do multi-entity operating structures matter in senior housing?",
       options: [
-        "Payroll will always be too low.",
-        "State-specific requirements and facility class differences can be missed.",
-        "Activities schedules cannot be standardized."
+        "They are only used for marketing.",
+        "They can separate legal risk while maintaining centralized operating control.",
+        "They eliminate regulatory requirements."
       ],
       answer: 1,
-      rationale: "Facility class and state rule differences can create compliance and care-delivery gaps if staffing templates are copied blindly."
+      rationale: "The structure supports risk segmentation while preserving governance and standards."
     }
   },
   {
     id: "m4",
-    title: "Regulatory Execution",
-    duration: "35 min",
-    focus: "Apply California RCFE and Oregon memory-care rules to day-to-day operations, training, and disclosure workflows.",
+    title: "Licensing & Regulations",
+    duration: "40 min",
+    focus: "Compare California and Oregon memory-care regulatory frameworks and convert rules into operating controls.",
     outcomes: [
-      "Build separate compliance checklists for Sacramento and Oregon sites.",
-      "Track memory-care training, disclosure, and policy update cycles.",
-      "Tie survey readiness to routine audit tasks."
+      "Distinguish CA RCFE requirements from OR RCF/ALF memory-care endorsement expectations.",
+      "Translate training and staffing mandates into practical compliance workflows.",
+      "Identify high-risk areas where cross-state policy copy/paste fails."
     ],
     exercise: [
-      "Write a monthly compliance calendar for training renewals, incident review, and policy attestations.",
-      "Create one pre-survey walkthrough checklist for each state."
+      "Build a side-by-side compliance checklist for Sacramento and each Oregon site type.",
+      "Create a monthly licensure and training tracking sheet with responsible owners."
+    ],
+    sections: [
+      {
+        title: "Regulatory Side-by-Side",
+        table: {
+          headers: ["Topic", "California (RCFE)", "Oregon (RCF/ALF + memory care requirements)"],
+          rows: [
+            ["Core Framework", "RCFE under California social services/licensing structure", "ODHS long-term care licensing with memory care rules/endorsement context"],
+            ["Memory Care Positioning", "Dementia-care obligations tied to facility operations and representations", "Memory-care specific requirements layered on licensed residential settings"],
+            ["Staffing Standard", "Adequate staffing standard", "Adequate staffing standard with acuity-driven expectations"],
+            ["Survey Exposure", "Routine and complaint-driven inspection risk", "Routine survey and enforcement risk with public reporting visibility"]
+          ]
+        }
+      },
+      {
+        title: "High-Risk Compliance Themes",
+        bullets: [
+          "Training documentation gaps (initial and ongoing dementia content).",
+          "Behavior-related PRN documentation quality and follow-up.",
+          "Elopement prevention controls and incident reporting timeliness.",
+          "Policy mismatch between written procedures and actual floor practice."
+        ]
+      },
+      {
+        title: "Recent Rule Movement",
+        body: "Both states have tightened expectations around dementia care structure, person-centered planning, and accountability. Operations should treat annual policy refreshes as mandatory rather than optional.",
+        note: "Action: run quarterly policy-to-practice audits with corrective action tracking."
+      }
     ],
     checkpoint: {
-      prompt: "For Sacramento RCFE operations, which statement is operationally correct?",
+      prompt: "For Sacramento operations, which regulatory framing is correct?",
       options: [
-        "The same Oregon memory-care training rule controls Sacramento workflows.",
-        "California RCFE dementia-care disclosure and staffing standards must be followed for Sacramento.",
-        "Only federal memory-care rules apply."
+        "Use Oregon memory-care rules as the primary framework.",
+        "California RCFE dementia-related requirements control Sacramento workflows.",
+        "Only federal rules apply in residential memory care."
       ],
       answer: 1,
-      rationale: "Sacramento must follow California RCFE dementia-care requirements, not Oregon rules."
+      rationale: "Sacramento operations must be built around California RCFE rules and related dementia standards."
     }
   },
   {
     id: "m5",
-    title: "Revenue Architecture",
-    duration: "25 min",
-    focus: "Model revenue by occupancy, private-pay assumptions, and Medicaid pathways tied to each community.",
+    title: "Staffing & Roles",
+    duration: "40 min",
+    focus: "Build a complete memory-care staffing architecture from leadership through frontline and support roles.",
     outcomes: [
-      "Map private-pay and Medicaid participation by location.",
-      "Understand ALW-style service coverage limits in California.",
-      "Build location-level forecast assumptions instead of one blended model."
+      "Define role accountability across executive leadership, clinical oversight, direct care, and support functions.",
+      "Set clear qualification and training expectations by role family.",
+      "Link staffing design to resident acuity, quality outcomes, and financial control."
     ],
     exercise: [
-      "Use the payment simulator to run base, upside, and downside scenarios for each community.",
-      "Set a payer-mix guardrail range for each Oregon location."
+      "Create a role-by-role accountability matrix for one CA and one OR community.",
+      "Build a 24/7 shift template with contingency staffing triggers."
+    ],
+    sections: [
+      {
+        title: "Role Architecture",
+        table: {
+          headers: ["Role", "Primary Accountability", "Operational Risk If Weak"],
+          rows: [
+            ["Administrator / Executive Director", "Licensure, operations, family trust, financial discipline", "Regulatory drift + census instability"],
+            ["Nursing Leadership", "Clinical protocols, med systems, care plan quality", "Safety events + medication errors"],
+            ["Memory Care Director", "Program quality, behavior support, family liaison", "Poor engagement + avoidable escalation"],
+            ["Caregivers / Med Techs", "Daily ADL support and observation", "Resident deterioration missed or unmanaged"],
+            ["Support Teams (dietary, housekeeping, maintenance)", "Environment reliability and resident experience", "Quality complaints + survey risk"]
+          ]
+        }
+      },
+      {
+        title: "Credential and Training Discipline",
+        bullets: [
+          "Administrator and clinical licensing/training standards vary by state.",
+          "Dementia-specific competencies must be validated, not assumed.",
+          "Training completion logs should be audit-ready at all times."
+        ]
+      },
+      {
+        title: "Staffing Control Signals",
+        bullets: [
+          "Overtime spikes, callouts, and turnover clusters are leading risk indicators.",
+          "Incident trend and staffing instability should be reviewed together weekly.",
+          "Admissions pacing should align with staffing readiness to avoid quality dilution."
+        ]
+      }
     ],
     checkpoint: {
-      prompt: "Which statement is most accurate for this course's Sacramento assumptions?",
+      prompt: "What is the biggest staffing risk of applying one identical template to all four Chancellor communities?",
       options: [
-        "Medicaid always pays room and board directly in RCFE settings.",
-        "ALW pathways cover all resident costs uniformly.",
-        "Service coverage may be available through approved pathways; room and board treatment differs and must be validated by program terms."
+        "You will always overstaff payroll.",
+        "State and facility-class differences can be missed, creating compliance and care gaps.",
+        "Activities calendars cannot be standardized."
       ],
-      answer: 2,
-      rationale: "California ALW pathway details are program-specific and do not simply equal full room-and-board payment."
+      answer: 1,
+      rationale: "Staffing models must account for jurisdiction and community-class differences."
     }
   },
   {
     id: "m6",
-    title: "Resident Journey Operations",
-    duration: "30 min",
-    focus: "Standardize intake, reassessment, behavior escalation, and family communication for dementia progression.",
+    title: "Revenue & Payment",
+    duration: "40 min",
+    focus: "Learn how memory care communities get paid and how to model realistic payer-mix economics by location.",
     outcomes: [
-      "Set clear admission and reassessment triggers.",
-      "Define when care-plan updates or transfer evaluation is required.",
-      "Create predictable family update workflows."
+      "Map revenue channels: private pay, Medicaid pathways, LTC insurance, and ancillary services.",
+      "Understand why payer assumptions must be location-specific.",
+      "Use reimbursement structure knowledge to avoid margin illusion."
     ],
     exercise: [
-      "Draft an intake rubric with cognitive, ADL, and safety criteria.",
-      "Create an escalation pathway for behavior changes, falls, and med-related changes."
+      "Run three payment-simulator scenarios per community (base/upside/downside).",
+      "Create a payer assumption register with source/date/owner for each key input."
+    ],
+    sections: [
+      {
+        title: "Revenue Stack",
+        bullets: [
+          "Private pay is commonly the base channel in residential memory care.",
+          "Medicaid participation is pathway-specific and state-specific.",
+          "Long-term care insurance and respite offerings can meaningfully affect net mix."
+        ]
+      },
+      {
+        title: "California vs Oregon Payment Dynamics",
+        table: {
+          headers: ["Dimension", "California (Sacramento RCFE context)", "Oregon (CHC community context)"],
+          rows: [
+            ["Medicaid Access Pattern", "Program-pathway dependent with enrollment and eligibility constraints", "Program/rate structure differs and may be closer to operational economics depending on setting"],
+            ["Forecasting Risk", "Assuming broad Medicaid conversion without verification", "Assuming uniform rates across communities and services"],
+            ["Control Requirement", "Validate provider enrollment, benefit scope, and service coverage details", "Validate current schedule, contract language, and community-specific terms"]
+          ]
+        }
+      },
+      {
+        title: "GUIDE and Broader Dementia Payment Evolution",
+        body: "CMS dementia-care model activity (including GUIDE) matters because it can influence referral behavior, care coordination expectations, and the broader ecosystem around when families choose residential placement.",
+        note: "Action: monitor federal and state payment-policy changes quarterly and refresh assumptions."
+      }
     ],
     checkpoint: {
-      prompt: "What should trigger immediate multidisciplinary review?",
+      prompt: "Which statement is most operationally accurate for Sacramento Medicaid assumptions?",
       options: [
-        "Any move-in inquiry call.",
-        "A pattern of acute behavior change and safety events.",
-        "A scheduled activity calendar update."
+        "Room-and-board treatment can be assumed equivalent to private-pay billing.",
+        "Any community can apply Medicaid assumptions without enrollment validation.",
+        "Program details must be verified; covered services and payment treatment are pathway-specific."
       ],
-      answer: 1,
-      rationale: "Patterned behavior or safety deterioration warrants immediate multidisciplinary review and plan adjustment."
+      answer: 2,
+      rationale: "Program eligibility, provider status, and coverage design must be validated before budgeting."
     }
   },
   {
     id: "m7",
-    title: "90-Day Operator Sprint",
+    title: "Daily Operations",
     duration: "35 min",
-    focus: "Convert course decisions into a 90-day operating plan with KPIs, owners, and review cadence.",
+    focus: "Translate policy and staffing design into reliable daily memory-care execution.",
     outcomes: [
-      "Assign accountable owners for occupancy, staffing stability, and compliance tasks.",
-      "Define weekly and monthly KPI review rhythm.",
-      "Build contingency triggers for census, staffing, and quality variance."
+      "Define a repeatable daily operating rhythm from morning care through overnight coverage.",
+      "Embed dementia-friendly programming and behavior support into routine care.",
+      "Align clinical, lifestyle, and family communication workflows."
     ],
     exercise: [
-      "Draft a 13-week plan with milestones for each community.",
-      "Set threshold actions for census decline, overtime spikes, and incident trend growth."
+      "Draft your community's daypart staffing-and-program schedule.",
+      "Add escalation triggers for behavior, medication, and safety events by shift."
+    ],
+    sections: [
+      {
+        title: "Sample Daily Rhythm",
+        table: {
+          headers: ["Time Band", "Core Activity", "Lead Roles"],
+          rows: [
+            ["Morning", "Personal care, medication flow, breakfast support", "Caregivers, med support, nursing oversight"],
+            ["Midday", "Therapeutic programming, mobility, meal support", "Activities + care team"],
+            ["Afternoon/Evening", "Family touchpoints, calmer engagement blocks, dinner", "Memory care leadership + direct care"],
+            ["Night", "Safety rounds, sleep support, incident readiness", "Awake overnight staff + escalation coverage"]
+          ]
+        }
+      },
+      {
+        title: "Program Design Essentials",
+        bullets: [
+          "Activities should be ability-matched and behavior-aware.",
+          "Dining and hydration workflows are central to outcomes.",
+          "Family communication should be scheduled and event-triggered."
+        ]
+      },
+      {
+        title: "Operational Controls",
+        bullets: [
+          "Care-plan updates should follow condition change, not calendar only.",
+          "Incident reviews should include staffing and process root-cause analysis.",
+          "Shift handoffs need standardized behavior/safety communication."
+        ]
+      }
     ],
     checkpoint: {
-      prompt: "Which KPI bundle best reflects memory-care operator control in this context?",
+      prompt: "What should trigger immediate multidisciplinary review in daily operations?",
       options: [
-        "Website traffic, social impressions, and ad frequency.",
-        "Occupancy, move-ins/move-outs, staffing stability, incident trend, and survey readiness tasks.",
-        "Only monthly gross revenue."
+        "Routine activity-calendar refresh.",
+        "Patterned behavior change and safety events.",
+        "Any routine tour inquiry."
       ],
       answer: 1,
-      rationale: "A balanced KPI set is required; revenue alone does not control quality or compliance risk."
+      rationale: "Escalating behavior/safety signals require rapid cross-functional intervention."
+    }
+  },
+  {
+    id: "m8",
+    title: "Sacramento & Oregon Sites",
+    duration: "30 min",
+    focus: "Apply course principles to Chancellor's actual location footprint and operating differences.",
+    outcomes: [
+      "Understand facility class and capacity differences across sites.",
+      "Identify which policies can be shared and which must be location-specific.",
+      "Translate site profile differences into practical KPI and risk adjustments."
+    ],
+    exercise: [
+      "Create a one-page site strategy sheet for each community.",
+      "Define top 3 risks and top 3 opportunities by site for the next 2 quarters."
+    ],
+    sections: [
+      {
+        title: "Chancellor Site Snapshot",
+        table: {
+          headers: ["Community", "State", "Class", "Licensed Beds", "Memory Units"],
+          rows: [
+            ["Revere Court of Sacramento", "CA", "RCFE", "72", "72"],
+            ["Maple Valley Memory Care", "OR", "ALF", "60", "60"],
+            ["Fircrest Senior Living", "OR", "RCF", "52", "20"],
+            ["Cherrywood Memory Care", "OR", "ALF", "78", "58"]
+          ]
+        }
+      },
+      {
+        title: "Operational Contrast",
+        bullets: [
+          "Revere runs under California RCFE framework and Sacramento market dynamics.",
+          "Oregon sites include mixed class structures and different memory-unit concentration.",
+          "Fircrest's mixed profile requires different staffing and occupancy modeling than fully memory-dedicated communities."
+        ]
+      },
+      {
+        title: "Execution Priority",
+        note: "Do not deploy one static playbook. Use a common operating framework with site-level controls for staffing, compliance, and payer assumptions."
+      }
+    ],
+    checkpoint: {
+      prompt: "Why does Fircrest require a different operating planning approach than a 100% memory-unit community?",
+      options: [
+        "It is a California site.",
+        "It has a mixed bed profile and lower memory-unit share.",
+        "It cannot participate in any payer pathway."
+      ],
+      answer: 1,
+      rationale: "Capacity mix changes staffing, programming, and revenue planning logic."
+    }
+  },
+  {
+    id: "m9",
+    title: "Compliance & Quality",
+    duration: "40 min",
+    focus: "Build an audit-ready quality and compliance operating system instead of ad hoc remediation.",
+    outcomes: [
+      "Understand survey and enforcement mechanics at a practical level.",
+      "Create a correction and prevention workflow after deficiencies.",
+      "Build monthly/quarterly QA cycles that catch issues early."
+    ],
+    exercise: [
+      "Design a deficiency-response template with owner, due date, and verification field.",
+      "Stand up a monthly QA dashboard with incident, medication, training, and care-plan controls."
+    ],
+    sections: [
+      {
+        title: "Inspection and Deficiency Mechanics",
+        bullets: [
+          "Survey findings often cluster around documentation, medication records, and training controls.",
+          "Serious events can escalate from corrective actions to penalties or licensure constraints.",
+          "Plan-of-correction quality determines whether issues are truly resolved or recur."
+        ]
+      },
+      {
+        title: "QA Cadence",
+        table: {
+          headers: ["Control", "Cadence", "Owner"],
+          rows: [
+            ["Training completion audit", "Monthly", "Administrator / HR"],
+            ["Medication and PRN documentation audit", "Monthly", "Clinical leadership"],
+            ["Care-plan quality review", "Quarterly minimum", "Nursing + memory care leadership"],
+            ["Incident trend review", "Monthly", "QA committee"],
+            ["Mock survey walkthrough", "Quarterly", "Regional + site leadership"]
+          ]
+        }
+      },
+      {
+        title: "Mandatory Reporting Discipline",
+        bullets: [
+          "Define what is reportable, by whom, and within what timeline.",
+          "Use event logs with timestamped escalation and closure evidence.",
+          "Train shift leaders on first-hour reporting responsibilities."
+        ]
+      }
+    ],
+    checkpoint: {
+      prompt: "What is the most common preventable deficiency theme in memory-care operations?",
+      options: [
+        "Landscape design aesthetics.",
+        "Documentation quality gaps and incomplete follow-through.",
+        "Use of digital calendars."
+      ],
+      answer: 1,
+      rationale: "Documentation and follow-through failures are frequent and operationally preventable."
+    }
+  },
+  {
+    id: "m10",
+    title: "Emerging Trends & Treatments",
+    duration: "35 min",
+    focus: "Understand treatment, diagnostics, and technology changes that could reshape dementia-care referral and operations.",
+    outcomes: [
+      "Understand why disease-modifying therapy news matters operationally even for residential providers.",
+      "Track diagnostics and technology developments that alter family expectations and care planning.",
+      "Build a trend-monitoring routine without overreacting to hype cycles."
+    ],
+    exercise: [
+      "Create a trend watchlist with evidence level, potential impact, and action owner.",
+      "Prepare a family-facing FAQ on current therapies, realistic expectations, and community coordination."
+    ],
+    sections: [
+      {
+        title: "Therapies and Referral Dynamics",
+        bullets: [
+          "Disease-modifying therapies are most relevant in earlier disease stages.",
+          "Residential operators still need literacy because families ask therapy-specific questions.",
+          "Referral timing may shift as community and medical pathways evolve."
+        ]
+      },
+      {
+        title: "Diagnostics and Technology",
+        bullets: [
+          "Improved diagnostics can support earlier and more precise care-path planning.",
+          "Technology supports (sensors, decision support, documentation aids) can reduce missed signals.",
+          "Adoption should be tied to measurable safety, quality, or labor outcomes."
+        ]
+      },
+      {
+        title: "2026+ Operator Outlook",
+        table: {
+          headers: ["Trend", "Potential Impact", "Operator Action"],
+          rows: [
+            ["Demographic demand growth", "Sustained pressure on capacity and staffing", "Strengthen hiring, retention, and admissions discipline"],
+            ["Payment-model experimentation", "Changing referral and coordination economics", "Track policy updates and adjust models quarterly"],
+            ["AI-enabled workflow tools", "Potential efficiency and quality improvements", "Pilot narrowly with outcome metrics before scaling"]
+          ]
+        }
+      }
+    ],
+    checkpoint: {
+      prompt: "Why should memory-care operators follow treatment and diagnostic innovation if most residents are later-stage?",
+      options: [
+        "It has no operational relevance.",
+        "It influences referral timing, family expectations, and care coordination pathways.",
+        "It automatically replaces residential care demand."
+      ],
+      answer: 1,
+      rationale: "Innovation changes upstream behavior even when residential care remains essential."
     }
   }
 ];
@@ -285,10 +642,7 @@ const locations = [
     license: "50A107",
     licensedBeds: 60,
     memoryUnits: 60,
-    paymentChannels: [
-      "Private pay",
-      "Medicaid participation shown in public record"
-    ],
+    paymentChannels: ["Private pay", "Medicaid participation shown in public record"],
     opsFocus: "Maintain Oregon memory-care training compliance and payer mix controls while protecting full memory-unit occupancy."
   },
   {
@@ -300,10 +654,7 @@ const locations = [
     license: "50R171",
     licensedBeds: 52,
     memoryUnits: 20,
-    paymentChannels: [
-      "Private pay",
-      "Medicaid participation shown in public record"
-    ],
+    paymentChannels: ["Private pay", "Medicaid participation shown in public record"],
     opsFocus: "Balance mixed resident profile operations and preserve capacity planning differences between total beds and memory-specific units."
   },
   {
@@ -315,23 +666,29 @@ const locations = [
     license: "50A339",
     licensedBeds: 78,
     memoryUnits: 58,
-    paymentChannels: [
-      "Private pay",
-      "Medicaid participation shown in public record"
-    ],
+    paymentChannels: ["Private pay", "Medicaid participation shown in public record"],
     opsFocus: "Run a high-capacity ALF memory operation with close tracking of staffing stability, medication workflow consistency, and occupancy conversion."
   }
 ];
 
 const finalQuiz = [
   {
-    prompt: "In senior housing valuation, what is the typical directional effect of cap-rate expansion (holding NOI constant)?",
-    options: ["Value declines", "Value rises", "No effect"],
+    prompt: "What is the core intent of this course?",
+    options: [
+      "Only teach generic industry terms.",
+      "Blend industry knowledge with practical operation of Chancellor communities.",
+      "Only teach one state's licensing rules."
+    ],
+    answer: 1
+  },
+  {
+    prompt: "In valuation terms, what is the typical effect of cap-rate expansion if NOI does not change?",
+    options: ["Value declines", "Value rises", "No directional effect"],
     answer: 0
   },
   {
-    prompt: "Which revenue channel is most commonly the base channel in memory care operations?",
-    options: ["Private pay", "Medicare Part B professional fees", "Risk-adjusted MA benchmark payments to the community"],
+    prompt: "Which revenue channel most commonly anchors residential memory care economics?",
+    options: ["Private pay", "Medicare Part B professional billing", "MA benchmark payments to the community"],
     answer: 0
   },
   {
@@ -345,9 +702,9 @@ const finalQuiz = [
     answer: 0
   },
   {
-    prompt: "What is the strongest reason to run separate compliance checklists for Sacramento and Oregon sites?",
+    prompt: "Why is one shared compliance checklist risky across Sacramento and Oregon sites?",
     options: [
-      "The building ages are different.",
+      "Building age is different.",
       "State rules and facility classes impose different operating requirements.",
       "Resident preferences are always identical."
     ],
@@ -359,42 +716,61 @@ const finalQuiz = [
     answer: 1
   },
   {
-    prompt: "In memory care operating economics, which expense category is often the largest controllable cost bucket?",
+    prompt: "In memory care operations, what is often the largest controllable expense bucket?",
     options: ["Labor", "Office supplies", "Property taxes"],
     answer: 0
   },
   {
-    prompt: "What is the key caution for California ALW assumptions in this course?",
+    prompt: "Which statement is the best caution for California ALW assumptions?",
     options: [
-      "ALW assumptions can be applied without provider enrollment checks.",
-      "ALW pathways require program-specific validation and do not automatically equal full room-and-board payment.",
-      "ALW replaces private-pay revenue in all scenarios."
+      "ALW assumptions require no provider validation.",
+      "ALW pathways are program-specific and require validation before budgeting.",
+      "ALW always mirrors private-pay structure."
     ],
     answer: 1
   },
   {
-    prompt: "Which KPI bundle best supports day-to-day memory-care operations?",
+    prompt: "What should trigger immediate multidisciplinary review?",
+    options: ["Routine calendar updates", "Patterned behavior change with safety events", "Any tour request"],
+    answer: 1
+  },
+  {
+    prompt: "Which KPI bundle is most useful for memory-care operator control?",
     options: [
-      "Occupancy, staffing stability, incident trends, and survey task completion",
-      "Only total monthly revenue",
-      "Only marketing lead volume"
+      "Occupancy, staffing stability, incident trend, and survey-task completion",
+      "Only monthly gross revenue",
+      "Only marketing leads"
     ],
     answer: 0
   },
   {
     prompt: "Why does Fircrest need different planning logic than a 100% memory-unit site?",
     options: [
-      "It has a mixed bed profile and only part of capacity is memory care.",
-      "It is located in California.",
-      "It has no Medicaid pathway."
+      "It is in California.",
+      "It has a mixed bed profile with lower memory-unit share.",
+      "It has no payer pathways."
     ],
-    answer: 0
+    answer: 1
+  },
+  {
+    prompt: "What is a frequent preventable deficiency theme in residential memory care?",
+    options: ["Landscape branding", "Documentation quality and follow-through gaps", "Website speed"],
+    answer: 1
+  },
+  {
+    prompt: "Why should operators monitor treatment and diagnostic innovation?",
+    options: [
+      "It has no relevance to residential care.",
+      "It can influence referral timing, family expectations, and care coordination.",
+      "It automatically eliminates residential demand."
+    ],
+    answer: 1
   }
 ];
 
 const storageKeys = {
-  completed: "chancellor_course_completed_v2",
-  notes: "chancellor_course_notes_v2"
+  completed: "chancellor_course_completed_v3",
+  notes: "chancellor_course_notes_v3"
 };
 
 const state = {
@@ -540,7 +916,7 @@ function renderModuleList() {
       const active = module.id === state.activeModuleId;
       const done = state.completed.has(module.id);
       return `
-        <li class="module-card ${active ? "active" : ""}" style="animation-delay: ${index * 80}ms;">
+        <li class="module-card ${active ? "active" : ""}" style="animation-delay: ${index * 70}ms;">
           <button class="module-open" data-module-id="${module.id}">
             <span class="module-number">Module ${index + 1} • ${module.duration}</span>
             <h3 class="module-title">${module.title}</h3>
@@ -559,6 +935,27 @@ function renderActiveModule() {
   const module = modules.find((entry) => entry.id === state.activeModuleId) || modules[0];
   const noteValue = state.notes[module.id] || "";
 
+  const sectionsHTML = (module.sections || [])
+    .map((section) => {
+      const bulletHTML = section.bullets
+        ? `<ul>${section.bullets.map((item) => `<li>${item}</li>`).join("")}</ul>`
+        : "";
+
+      const tableHTML = section.table ? renderTable(section.table) : "";
+
+      return `
+        <section class="content-section">
+          <h4>${section.title}</h4>
+          ${section.body ? `<p>${section.body}</p>` : ""}
+          ${section.callout ? `<p class="inline-callout">${section.callout}</p>` : ""}
+          ${bulletHTML}
+          ${tableHTML}
+          ${section.note ? `<p class="section-note">${section.note}</p>` : ""}
+        </section>
+      `;
+    })
+    .join("");
+
   moduleDetailEl.innerHTML = `
     <h3>${module.title}</h3>
     <p class="module-focus">${module.focus}</p>
@@ -576,6 +973,10 @@ function renderActiveModule() {
           ${module.exercise.map((item) => `<li>${item}</li>`).join("")}
         </ul>
       </section>
+    </div>
+
+    <div class="module-sections">
+      ${sectionsHTML}
     </div>
 
     <form class="check-form" id="module-check-form">
@@ -623,6 +1024,23 @@ function renderActiveModule() {
     state.notes[module.id] = noteEl.value;
     localStorage.setItem(storageKeys.notes, JSON.stringify(state.notes));
   });
+}
+
+function renderTable(table) {
+  return `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>${table.headers.map((header) => `<th>${header}</th>`).join("")}</tr>
+        </thead>
+        <tbody>
+          ${table.rows
+            .map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`)
+            .join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
 }
 
 function renderProgress() {
@@ -834,7 +1252,7 @@ function gradeQuiz() {
   }
 
   quizResultEl.textContent = `Score: ${correct}/${total} (${score}%). ${
-    score >= 80 ? "Pass" : "Review modules 1-5 and retry"
+    score >= 80 ? "Pass" : "Review modules 2-9 and retry"
   }.`;
   quizResultEl.style.color = score >= 80 ? "var(--good)" : "var(--warn)";
 }
