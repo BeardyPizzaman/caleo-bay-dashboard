@@ -387,6 +387,73 @@ main {
   background: #fff;
 }
 
+.industry-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.industry-tab {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.industry-tab.active {
+  background: color-mix(in srgb, var(--brand-2) 16%, white);
+  color: color-mix(in srgb, var(--brand-2) 70%, black);
+  border-color: color-mix(in srgb, var(--brand-2) 36%, white);
+}
+
+.industry-detail {
+  margin-top: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  background: var(--surface-strong);
+}
+
+.industry-detail h3 {
+  margin-bottom: 0.35rem;
+}
+
+.industry-detail .industry-summary {
+  margin: 0.3rem 0 0.85rem;
+  color: var(--ink-soft);
+}
+
+.industry-grid {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.industry-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  padding: 0.75rem;
+}
+
+.industry-card h4 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+
+.industry-card ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.industry-card li {
+  margin-bottom: 0.3rem;
+  color: var(--ink-soft);
+}
+
 .location-controls {
   display: flex;
   flex-wrap: wrap;

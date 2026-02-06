@@ -18,10 +18,11 @@
     <h1>Memory Care Operations Academy</h1>
     <p class="hero-copy">
       Interactive training tailored to Chancellor communities in Sacramento and Oregon.
-      Build operating fluency on staffing, structure, compliance, and reimbursement.
+      Build both industry fluency and operating fluency on staffing, structure, compliance, reimbursement, and value creation.
     </p>
     <div class="hero-actions">
       <button id="start-course" class="btn solid">Start Module 1</button>
+      <a class="btn ghost" href="#industry-lab">Open Industry Lab</a>
       <a class="btn ghost" href="#location-lab">Open Location Lab</a>
     </div>
     <div class="hero-stats">
@@ -30,8 +31,8 @@
         <p>Communities in this course</p>
       </article>
       <article>
-        <span>6</span>
-        <p>Hands-on modules</p>
+        <span>7</span>
+        <p>Industry + operator modules</p>
       </article>
       <article>
         <span>2026</span>
@@ -44,12 +45,12 @@
     <section class="panel reveal" id="course">
       <div class="panel-head">
         <h2>Course Roadmap</h2>
-        <p>Track completion and move module-by-module through a Chancellor-specific operator workflow.</p>
+        <p>Track completion and move module-by-module through industry fundamentals plus a Chancellor-specific operator workflow.</p>
         <div class="progress-shell" role="status" aria-live="polite">
           <div class="progress-bar">
             <span id="progress-fill"></span>
           </div>
-          <p id="progress-label">0 of 6 modules complete</p>
+          <p id="progress-label">0 of 7 modules complete</p>
         </div>
         <button id="reset-progress" class="btn text">Reset Progress</button>
       </div>
@@ -60,6 +61,15 @@
         </aside>
         <article id="module-detail" class="module-detail" aria-live="polite"></article>
       </div>
+    </section>
+
+    <section class="panel reveal" id="industry-lab">
+      <div class="panel-head">
+        <h2>Industry Foundations Lab</h2>
+        <p>Learn how the senior living and memory care industry works independent of any one operator.</p>
+      </div>
+      <div id="industry-controls" class="industry-controls" role="tablist" aria-label="Industry topics"></div>
+      <article id="industry-detail" class="industry-detail"></article>
     </section>
 
     <section class="panel reveal" id="location-lab">
@@ -109,7 +119,7 @@
     <section class="panel reveal" id="final-check">
       <div class="panel-head">
         <h2>Final Check</h2>
-        <p>Pass this quiz to confirm core operational knowledge for Sacramento and Oregon sites.</p>
+        <p>Pass this quiz to confirm both industry and Chancellor location-level operational knowledge.</p>
       </div>
       <form id="quiz-form" class="quiz-form"></form>
       <button id="grade-quiz" class="btn solid" type="button">Grade Final Check</button>

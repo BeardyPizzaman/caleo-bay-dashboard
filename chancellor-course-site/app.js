@@ -1,6 +1,31 @@
 const modules = [
   {
     id: "m1",
+    title: "Industry Architecture",
+    duration: "25 min",
+    focus: "Understand the senior living and memory care market structure before making community-level operating decisions.",
+    outcomes: [
+      "Differentiate assisted living, memory care, residential care, and skilled nursing roles in the care continuum.",
+      "Identify core revenue and margin drivers for memory care operations.",
+      "Recognize the relationship between risk, cap rates, and asset valuation."
+    ],
+    exercise: [
+      "Draw the full resident journey from independent living to higher-acuity settings.",
+      "Build a one-page value tree linking occupancy, rate, labor efficiency, and NOI."
+    ],
+    checkpoint: {
+      prompt: "In senior housing valuation, what usually happens to property value when perceived risk rises and the cap rate expands?",
+      options: [
+        "Value generally declines.",
+        "Value generally increases.",
+        "Value is unchanged."
+      ],
+      answer: 0,
+      rationale: "Holding NOI constant, higher cap rates imply lower valuation."
+    }
+  },
+  {
+    id: "m2",
     title: "Portfolio Map",
     duration: "20 min",
     focus: "Identify each Chancellor community's license class, bed profile, and operating model before setting staffing or budget assumptions.",
@@ -21,7 +46,7 @@ const modules = [
     }
   },
   {
-    id: "m2",
+    id: "m3",
     title: "Staffing Architecture",
     duration: "30 min",
     focus: "Build role coverage for dementia operations across direct care, clinical oversight, and business office execution.",
@@ -46,7 +71,7 @@ const modules = [
     }
   },
   {
-    id: "m3",
+    id: "m4",
     title: "Regulatory Execution",
     duration: "35 min",
     focus: "Apply California RCFE and Oregon memory-care rules to day-to-day operations, training, and disclosure workflows.",
@@ -67,11 +92,11 @@ const modules = [
         "Only federal memory-care rules apply."
       ],
       answer: 1,
-      rationale: "Sacramento must follow California RCFE and dementia-care requirements, not Oregon rules."
+      rationale: "Sacramento must follow California RCFE dementia-care requirements, not Oregon rules."
     }
   },
   {
-    id: "m4",
+    id: "m5",
     title: "Revenue Architecture",
     duration: "25 min",
     focus: "Model revenue by occupancy, private-pay assumptions, and Medicaid pathways tied to each community.",
@@ -96,7 +121,7 @@ const modules = [
     }
   },
   {
-    id: "m5",
+    id: "m6",
     title: "Resident Journey Operations",
     duration: "30 min",
     focus: "Standardize intake, reassessment, behavior escalation, and family communication for dementia progression.",
@@ -121,7 +146,7 @@ const modules = [
     }
   },
   {
-    id: "m6",
+    id: "m7",
     title: "90-Day Operator Sprint",
     duration: "35 min",
     focus: "Convert course decisions into a 90-day operating plan with KPIs, owners, and review cadence.",
@@ -144,6 +169,93 @@ const modules = [
       answer: 1,
       rationale: "A balanced KPI set is required; revenue alone does not control quality or compliance risk."
     }
+  }
+];
+
+const industryTopics = [
+  {
+    id: "continuum",
+    name: "Care Continuum",
+    summary: "Memory care sits inside a broader continuum that includes home/community services, assisted living, residential care, and nursing-level settings.",
+    keyPoints: [
+      "The operating model changes as resident acuity rises.",
+      "Admission and retention criteria drive clinical and staffing complexity.",
+      "Transitions are unavoidable; planning for them is a core operator skill."
+    ],
+    applyNow: [
+      "Map your top 3 referral sources and likely next-level transfer destinations.",
+      "Document escalation criteria that trigger reassessment or transfer planning."
+    ]
+  },
+  {
+    id: "economics",
+    name: "Economics & Value",
+    summary: "Industry economics are driven by occupancy, rate, labor productivity, clinical quality, and reputation.",
+    keyPoints: [
+      "Labor is commonly the largest controllable expense category.",
+      "Revenue quality depends on both rate strategy and resident mix.",
+      "Cap rates connect operational risk to enterprise value."
+    ],
+    applyNow: [
+      "Set monthly thresholds for occupancy, overtime, and agency dependence.",
+      "Track margin impact from one-point changes in occupancy and labor cost."
+    ]
+  },
+  {
+    id: "payer-flow",
+    name: "Payer Flow",
+    summary: "Memory care revenue is usually a blend of private pay, long-term care insurance, and state-program pathways where available.",
+    keyPoints: [
+      "Private pay often remains the base revenue channel in memory care.",
+      "Medicaid pathways are state-specific and program-specific.",
+      "Contract language and eligibility rules must be validated before forecasting."
+    ],
+    applyNow: [
+      "Build one payer map for California RCFE and one for each Oregon site type.",
+      "Maintain an assumptions register that ties each rate to a source document."
+    ]
+  },
+  {
+    id: "regulation",
+    name: "Regulatory Exposure",
+    summary: "Operators face multi-layered oversight from state licensing, resident rights frameworks, labor rules, and payer program obligations.",
+    keyPoints: [
+      "Cross-state operators need separate policy libraries by jurisdiction.",
+      "Training, disclosure, incident response, and documentation are recurring audit themes.",
+      "Ownership and transaction rules have tightened in both Oregon and California."
+    ],
+    applyNow: [
+      "Create a jurisdiction-specific compliance calendar with named owners.",
+      "Run quarterly mock audits focused on common survey failure points."
+    ]
+  },
+  {
+    id: "deals",
+    name: "Transactions & Growth",
+    summary: "Growth decisions depend on local demand, staffing feasibility, reimbursement reliability, and regulatory transaction risk.",
+    keyPoints: [
+      "Deal diligence must include licensure, quality, staffing, and payer-contract integrity.",
+      "Small documentation gaps can become significant post-close liabilities.",
+      "Integration speed is limited by workforce stability and policy harmonization."
+    ],
+    applyNow: [
+      "Use a pre-close checklist that includes resident care-plan and incident trend review.",
+      "Stage integration over 90 days with explicit risk controls."
+    ]
+  },
+  {
+    id: "risk-signals",
+    name: "Risk Signals",
+    summary: "Early detection of operational drift is essential in memory care because quality and financial impacts can compound quickly.",
+    keyPoints: [
+      "Repeated incidents, staffing churn, and rushed admissions are leading indicators.",
+      "Family communication breakdown often precedes reputation and occupancy pressure.",
+      "High overtime and high turnover together usually signal process strain."
+    ],
+    applyNow: [
+      "Define 10 early-warning indicators and weekly review cadence.",
+      "Assign escalation actions for each signal at yellow and red thresholds."
+    ]
   }
 ];
 
@@ -213,6 +325,16 @@ const locations = [
 
 const finalQuiz = [
   {
+    prompt: "In senior housing valuation, what is the typical directional effect of cap-rate expansion (holding NOI constant)?",
+    options: ["Value declines", "Value rises", "No effect"],
+    answer: 0
+  },
+  {
+    prompt: "Which revenue channel is most commonly the base channel in memory care operations?",
+    options: ["Private pay", "Medicare Part B professional fees", "Risk-adjusted MA benchmark payments to the community"],
+    answer: 0
+  },
+  {
     prompt: "Which Chancellor community is listed as an Oregon Residential Care Facility (RCF)?",
     options: ["Maple Valley Memory Care", "Fircrest Senior Living", "Cherrywood Memory Care"],
     answer: 1
@@ -237,8 +359,8 @@ const finalQuiz = [
     answer: 1
   },
   {
-    prompt: "In the payment simulator, what changes first when occupancy increases with fixed rates?",
-    options: ["Number of occupied beds", "Community license type", "State law"],
+    prompt: "In memory care operating economics, which expense category is often the largest controllable cost bucket?",
+    options: ["Labor", "Office supplies", "Property taxes"],
     answer: 0
   },
   {
@@ -271,14 +393,15 @@ const finalQuiz = [
 ];
 
 const storageKeys = {
-  completed: "chancellor_course_completed_v1",
-  notes: "chancellor_course_notes_v1"
+  completed: "chancellor_course_completed_v2",
+  notes: "chancellor_course_notes_v2"
 };
 
 const state = {
   activeModuleId: modules[0].id,
   completed: new Set(),
   notes: {},
+  activeIndustryId: industryTopics[0].id,
   activeLocationId: locations[0].id
 };
 
@@ -294,8 +417,13 @@ const moduleListEl = document.getElementById("module-list");
 const moduleDetailEl = document.getElementById("module-detail");
 const progressFillEl = document.getElementById("progress-fill");
 const progressLabelEl = document.getElementById("progress-label");
+
+const industryControlsEl = document.getElementById("industry-controls");
+const industryDetailEl = document.getElementById("industry-detail");
+
 const locationControlsEl = document.getElementById("location-controls");
 const locationDetailEl = document.getElementById("location-detail");
+
 const paymentLocationEl = document.getElementById("payment-location");
 const occupancyEl = document.getElementById("occupancy");
 const occupancyValueEl = document.getElementById("occupancy-value");
@@ -304,6 +432,7 @@ const medicaidValueEl = document.getElementById("medicaid-value");
 const privateRateEl = document.getElementById("private-rate");
 const medicaidRateEl = document.getElementById("medicaid-rate");
 const paymentOutputEl = document.getElementById("payment-output");
+
 const quizFormEl = document.getElementById("quiz-form");
 const quizResultEl = document.getElementById("quiz-result");
 
@@ -312,6 +441,7 @@ init();
 function init() {
   hydrateState();
   renderCourseArea();
+  renderIndustryLab();
   renderLocationLab();
   setupPaymentSimulator();
   renderQuiz();
@@ -370,6 +500,16 @@ function bindGlobalActions() {
       state.activeModuleId = openButton.dataset.moduleId;
       renderCourseArea();
     }
+  });
+
+  industryControlsEl.addEventListener("click", (event) => {
+    const tab = event.target.closest(".industry-tab");
+    if (!tab) {
+      return;
+    }
+
+    state.activeIndustryId = tab.dataset.topicId;
+    renderIndustryLab();
   });
 
   locationControlsEl.addEventListener("click", (event) => {
@@ -455,7 +595,7 @@ function renderActiveModule() {
 
     <div class="note-area">
       <label for="module-note">Module Notes (saved locally in your browser)</label>
-      <textarea id="module-note" placeholder="Write your operating notes, assumptions, or action items here.">${escapeHTML(noteValue)}</textarea>
+      <textarea id="module-note" placeholder="Write your industry or operating notes, assumptions, and action items here.">${escapeHTML(noteValue)}</textarea>
     </div>
   `;
 
@@ -496,6 +636,43 @@ function renderProgress() {
 
 function persistCompleted() {
   localStorage.setItem(storageKeys.completed, JSON.stringify(Array.from(state.completed)));
+}
+
+function renderIndustryLab() {
+  industryControlsEl.innerHTML = industryTopics
+    .map(
+      (topic) => `
+      <button
+        class="industry-tab ${topic.id === state.activeIndustryId ? "active" : ""}"
+        type="button"
+        data-topic-id="${topic.id}"
+      >
+        ${topic.name}
+      </button>
+    `
+    )
+    .join("");
+
+  const topic = industryTopics.find((entry) => entry.id === state.activeIndustryId) || industryTopics[0];
+
+  industryDetailEl.innerHTML = `
+    <h3>${topic.name}</h3>
+    <p class="industry-summary">${topic.summary}</p>
+    <div class="industry-grid">
+      <section class="industry-card">
+        <h4>Core Points</h4>
+        <ul>
+          ${topic.keyPoints.map((point) => `<li>${point}</li>`).join("")}
+        </ul>
+      </section>
+      <section class="industry-card">
+        <h4>Apply This Week</h4>
+        <ul>
+          ${topic.applyNow.map((step) => `<li>${step}</li>`).join("")}
+        </ul>
+      </section>
+    </div>
+  `;
 }
 
 function renderLocationLab() {
@@ -657,7 +834,7 @@ function gradeQuiz() {
   }
 
   quizResultEl.textContent = `Score: ${correct}/${total} (${score}%). ${
-    score >= 80 ? "Pass" : "Review modules 2-4 and retry"
+    score >= 80 ? "Pass" : "Review modules 1-5 and retry"
   }.`;
   quizResultEl.style.color = score >= 80 ? "var(--good)" : "var(--warn)";
 }

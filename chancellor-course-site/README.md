@@ -13,9 +13,10 @@ Then open:
 
 ## What Is Included
 - Interactive module roadmap with progress tracking (localStorage)
+- Industry Foundations Lab (care continuum, economics, payer flow, regulatory exposure)
 - Sacramento + Oregon location comparison lab
 - Revenue/payment scenario simulator by community
-- Final graded knowledge check
+- Final graded knowledge check (industry + Chancellor operations)
 - Source reference links for policy updates
 
 ## Files
