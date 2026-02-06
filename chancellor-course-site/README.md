@@ -1,0 +1,24 @@
+# Chancellor Memory Care Operations Academy (Website)
+
+## Open Locally
+From this folder, run:
+
+```bash
+python3 -m http.server 8080
+```
+
+Then open:
+
+- http://127.0.0.1:8080/index.html
+
+## What Is Included
+- Interactive module roadmap with progress tracking (localStorage)
+- Sacramento + Oregon location comparison lab
+- Revenue/payment scenario simulator by community
+- Final graded knowledge check
+- Source reference links for policy updates
+
+## Files
+- `index.html`
+- `styles.css`
+- `app.js`

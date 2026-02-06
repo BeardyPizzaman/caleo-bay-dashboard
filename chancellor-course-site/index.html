@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chancellor Memory Care Operations Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,100&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="texture" aria-hidden="true"></div>
+
+  <header class="hero reveal" id="top">
+    <p class="eyebrow">Chancellor Health Care LLC</p>
+    <h1>Memory Care Operations Academy</h1>
+    <p class="hero-copy">
+      Interactive training tailored to Chancellor communities in Sacramento and Oregon.
+      Build operating fluency on staffing, structure, compliance, and reimbursement.
+    </p>
+    <div class="hero-actions">
+      <button id="start-course" class="btn solid">Start Module 1</button>
+      <a class="btn ghost" href="#location-lab">Open Location Lab</a>
+    </div>
+    <div class="hero-stats">
+      <article>
+        <span>4</span>
+        <p>Communities in this course</p>
+      </article>
+      <article>
+        <span>6</span>
+        <p>Hands-on modules</p>
+      </article>
+      <article>
+        <span>2026</span>
+        <p>Content baseline date</p>
+      </article>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel reveal" id="course">
+      <div class="panel-head">
+        <h2>Course Roadmap</h2>
+        <p>Track completion and move module-by-module through a Chancellor-specific operator workflow.</p>
+        <div class="progress-shell" role="status" aria-live="polite">
+          <div class="progress-bar">
+            <span id="progress-fill"></span>
+          </div>
+          <p id="progress-label">0 of 6 modules complete</p>
+        </div>
+        <button id="reset-progress" class="btn text">Reset Progress</button>
+      </div>
+
+      <div class="course-grid">
+        <aside>
+          <ul id="module-list" class="module-list" aria-label="Course modules"></ul>
+        </aside>
+        <article id="module-detail" class="module-detail" aria-live="polite"></article>
+      </div>
+    </section>
+
+    <section class="panel reveal" id="location-lab">
+      <div class="panel-head">
+        <h2>Location Lab</h2>
+        <p>Compare Chancellor operating requirements by facility type and state.</p>
+      </div>
+      <div id="location-controls" class="location-controls" role="tablist" aria-label="Locations"></div>
+      <article id="location-detail" class="location-detail"></article>
+    </section>
+
+    <section class="panel reveal" id="payment-lab">
+      <div class="panel-head">
+        <h2>Payment Simulator</h2>
+        <p>Model monthly gross revenue from occupancy and payer-mix assumptions by location.</p>
+      </div>
+      <form id="payment-form" class="payment-form">
+        <label>
+          Community
+          <select id="payment-location"></select>
+        </label>
+        <label>
+          Occupancy (%)
+          <input id="occupancy" type="range" min="70" max="100" step="1" value="90" />
+          <span id="occupancy-value">90%</span>
+        </label>
+        <label>
+          Medicaid Resident Mix (%)
+          <input id="medicaid-mix" type="range" min="0" max="100" step="1" value="35" />
+          <span id="medicaid-value">35%</span>
+        </label>
+        <label>
+          Private-Pay Monthly Rate ($)
+          <input id="private-rate" type="number" min="1000" step="100" value="8500" />
+        </label>
+        <label>
+          Medicaid-Contract Monthly Rate ($)
+          <input id="medicaid-rate" type="number" min="500" step="100" value="4500" />
+        </label>
+      </form>
+      <div id="payment-output" class="payment-output" aria-live="polite"></div>
+      <p class="fine-print">
+        Educational modeling only. Local contracts and state program terms control actual payment.
+      </p>
+    </section>
+
+    <section class="panel reveal" id="final-check">
+      <div class="panel-head">
+        <h2>Final Check</h2>
+        <p>Pass this quiz to confirm core operational knowledge for Sacramento and Oregon sites.</p>
+      </div>
+      <form id="quiz-form" class="quiz-form"></form>
+      <button id="grade-quiz" class="btn solid" type="button">Grade Final Check</button>
+      <p id="quiz-result" class="quiz-result" aria-live="polite"></p>
+    </section>
+
+    <section class="panel reveal" id="resources">
+      <div class="panel-head">
+        <h2>Reference Library</h2>
+        <p>Use these primary sources to update policy assumptions as rules change.</p>
+      </div>
+      <ul class="resource-list">
+        <li><a href="https://www.ccld.dss.ca.gov/transparencyapi/api/facilitysearch?facNum=342700005&facName=&city=&zip=&type=SeniorCare&county=&facType=" target="_blank" rel="noopener noreferrer">California RCFE facility record: Revere Court of Sacramento</a></li>
+        <li><a href="https://ltclicensing.oregon.gov/Facilities/PrintReport?facilityId=50A107" target="_blank" rel="noopener noreferrer">Oregon ALF record: Maple Valley Memory Care</a></li>
+        <li><a href="https://ltclicensing.oregon.gov/Facilities/PrintReport?facilityId=50R171" target="_blank" rel="noopener noreferrer">Oregon RCF record: Fircrest Senior Living</a></li>
+        <li><a href="https://ltclicensing.oregon.gov/Facilities/PrintReport?facilityId=50A339" target="_blank" rel="noopener noreferrer">Oregon ALF record: Cherrywood Memory Care</a></li>
+        <li><a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1569.625.&lawCode=HSC" target="_blank" rel="noopener noreferrer">California dementia-care disclosure requirements</a></li>
+        <li><a href="https://secure.sos.state.or.us/oard/viewSingleRule.action?ruleVrsnRsn=90329" target="_blank" rel="noopener noreferrer">Oregon memory care training rule (OAR 411-057-0140)</a></li>
+        <li><a href="https://www.dhcs.ca.gov/provgovpart/Documents/Assisted-Living-Waiver.pdf" target="_blank" rel="noopener noreferrer">Medi-Cal Assisted Living Waiver overview</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer reveal">
+    <p>Built for Chancellor operations planning. Last updated: February 6, 2026.</p>
+    <a href="#top">Back to top</a>
+  </footer>
+</body>
+</html>
